@@ -341,7 +341,7 @@ if __name__ == "__main__":
     # Use the DebugToolbar
     # DebugToolbarExtension(app)
 
-    PORT = int(os.environ.get("PORT", 5000))
+    PORT = int(os.environ.get("PORT", 80))
     DEBUG = "NO_DEBUG" not in os.environ
 
     # app.run()

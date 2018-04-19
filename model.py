@@ -19,12 +19,11 @@ make_searchable()
 # Model definitions
 
 class User(db.Model):
-    """User of Breadcrumbs website."""
+    """User of Issue system."""
 
     __tablename__ = "users"
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    city_id = db.Column(db.Integer, db.ForeignKey('cities.city_id'), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
     first_name = db.Column(db.String(100), nullable=False)
@@ -32,6 +31,9 @@ class User(db.Model):
     # Put name inside TSVectorType definition for it to be fulltext-indexed (searchable)
     search_vector = db.Column(TSVectorType('first_name', 'last_name'))
 
+
+    """TODO Delete city_id"""
+    city_id = db.Column(db.Integer, db.ForeignKey('cities.city_id'), nullable=False)
     city = db.relationship("City", backref=db.backref("users"))
 
     """
@@ -39,6 +41,10 @@ class User(db.Model):
     phone_number       ->  String
     active             ->  Bool
     """
+
+    worked_department = db.Column(db.Integer, db.ForeignKey('departments.department_id'), nullable=True)
+    phone_number = db.Column(db.String(20), nullable=True)
+    # TODO active
 
 
     def __repr__(self):
@@ -49,11 +55,10 @@ class User(db.Model):
 
 
 class Issue(db.Model):
-    """Image uploaded by user for each restaurant visit."""
+    """Issue info."""
 
     __tablename__ = "issues"
 
-    issue_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     """
     #connected
     department_id   ->  Department
@@ -64,44 +69,74 @@ class Issue(db.Model):
     logs            ->  IssueLog[n]
     reports         ->  Report[n]
 
-    type            ->  Oneri
-    state           ->  State(Success, Failed, Unsolvable, Interrupted(sekte))
+    type_id         ->  IssueType(Suggestion,Compliment) # TODO write theese
+    state_id        ->  IssueState(Success, Failed, Unsolvable, Interrupted(sekte))
+
     entry_date      ->  Date
     finish_date     ->  Date
     summary         ->  String
     detail_text     ->  String
+    """
+    issue_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+
+    department_id = db.Column(db.Integer, db.ForeignKey('departments.department_id'), nullable=False)
+    issuer_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    solver_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=True)
+    # TODO lists
+
+    type_id = db.Column(db.Integer, db.ForeignKey('issuetypes.type_id'), nullable=True)
+    state_id = db.Column(db.Integer, db.ForeignKey('issuestates.state_id'), nullable=True)
+
+    entry_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    finish_date = db.Column(db.DateTime, nullable=True)
+    summary = db.Column(db.String(140), nullable=True)
+    detail_text = db.Column(db.String(400), nullable=True)
+
+    # visit = db.relationship("Visit", backref=db.backref("images"))
+
+class IssueState(db.Model):
+    """States of an Issue."""
+
+    __tablename__ = "issuestates"
 
     """
+    state_name            ->  String
+    """
+    state_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
 
-    #visit_id = db.Column(db.Integer, db.ForeignKey('visits.visit_id'), nullable=False)
-    #url = db.Column(db.String(200), nullable=False)
-    #uploaded_At = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-    #taken_At = db.Column(db.DateTime, nullable=True)
-    #rating = db.Column(db.String(100), nullable=True)
+    state_name = db.Column(db.String(30), nullable=False)
 
-    #visit = db.relationship("Visit", backref=db.backref("images"))
+class IssueType(db.Model):
+    """Types of an Issue."""
 
-"""
-    def __repr__(self):
-        """Provide helpful representation when printed."""
+    __tablename__ = "issuetypes"
 
-        return "<Image image_id=%s visit_id=%s>" % (self.image_id,
-                                                    self.visit_id)
-"""
+    """
+    type_name            ->  String
+    """
+    type_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+
+    type_name = db.Column(db.String(30), nullable=False)
 
 class Department(db.Model):
     """Department info."""
 
     __tablename__ = "departments"
 
-    department_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     """
     #connected
+    supervisor_id      ->  User
     parent_department  ->  Department
-    supervisor         ->  User
 
     name               ->  String
     """
+
+    department_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+
+    parent_department = db.Column(db.Integer, db.ForeignKey('departments.department_id'), nullable=True)
+    supervisor_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=True)
+
+    name = db.Column(db.String(100), nullable=False)
 
 class IssueLog(db.Model):
     """Log of a state of an Issue when changed."""
@@ -115,8 +150,15 @@ class IssueLog(db.Model):
     user_id            ->  User
 
     date               ->  Date
-    new_state          ->  State(Success, Failed, Unsolvable, Interrupted(sekte))
+    new_state_id       ->  State(Success, Failed, Unsolvable, Interrupted(sekte))
     """
+
+    issue_id = db.Column(db.Integer, db.ForeignKey('issues.issue_id'), nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=True)
+
+    date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    new_state_id = db.Column(db.Integer, db.ForeignKey('issuestates.state_id'), nullable=True)
+
 
 class IssueReport(db.Model):
     """Additional info about an Issue."""
@@ -133,6 +175,17 @@ class IssueReport(db.Model):
     message            ->  String
     date               ->  Date
     """
+
+    issue_id = db.Column(db.Integer, db.ForeignKey('issues.issue_id'), nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=True)
+    # TODO attachments
+
+    message = db.Column(db.String(400), nullable=True)
+    date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+
+
+
+""" """ """ """ """ """
 
 
 
