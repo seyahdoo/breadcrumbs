@@ -34,11 +34,106 @@ class User(db.Model):
 
     city = db.relationship("City", backref=db.backref("users"))
 
+    """
+    worked_department  ->  Department
+    phone_number       ->  String
+    active             ->  Bool
+    """
+
+
     def __repr__(self):
         """Provide helpful representation when printed."""
 
         return "<User user_id=%s email=%s>" % (self.user_id,
                                                self.email)
+
+
+class Issue(db.Model):
+    """Image uploaded by user for each restaurant visit."""
+
+    __tablename__ = "issues"
+
+    issue_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    """
+    #connected
+    department_id   ->  Department
+    issuer_id       ->  User
+    solver_id       ->  User
+    attachments     ->  Attachment[n]
+    interruptions   ->  Issue[n]
+    logs            ->  IssueLog[n]
+    reports         ->  Report[n]
+
+    type            ->  Oneri
+    state           ->  State(Success, Failed, Unsolvable, Interrupted(sekte))
+    entry_date      ->  Date
+    finish_date     ->  Date
+    summary         ->  String
+    detail_text     ->  String
+
+    """
+
+    #visit_id = db.Column(db.Integer, db.ForeignKey('visits.visit_id'), nullable=False)
+    #url = db.Column(db.String(200), nullable=False)
+    #uploaded_At = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    #taken_At = db.Column(db.DateTime, nullable=True)
+    #rating = db.Column(db.String(100), nullable=True)
+
+    #visit = db.relationship("Visit", backref=db.backref("images"))
+
+"""
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<Image image_id=%s visit_id=%s>" % (self.image_id,
+                                                    self.visit_id)
+"""
+
+class Department(db.Model):
+    """Department info."""
+
+    __tablename__ = "departments"
+
+    department_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    """
+    #connected
+    parent_department  ->  Department
+    supervisor         ->  User
+
+    name               ->  String
+    """
+
+class IssueLog(db.Model):
+    """Log of a state of an Issue when changed."""
+
+    __tablename__ = "issuelogs"
+
+    issue_log_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    """
+    #connected
+    issue_id           ->  Issue
+    user_id            ->  User
+
+    date               ->  Date
+    new_state          ->  State(Success, Failed, Unsolvable, Interrupted(sekte))
+    """
+
+class IssueReport(db.Model):
+    """Additional info about an Issue."""
+
+    __tablename__ = "issuereports"
+
+    issue_report_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    """
+    #connected
+    issue_id           ->  Issue
+    user_id            ->  User
+    attachments        ->  Attachment[n]
+
+    message            ->  String
+    date               ->  Date
+    """
+
 
 
 class Restaurant(db.Model):
@@ -158,6 +253,9 @@ class Image(db.Model):
 
         return "<Image image_id=%s visit_id=%s>" % (self.image_id,
                                                     self.visit_id)
+
+
+
 
 
 class Connection(db.Model):
