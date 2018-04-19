@@ -7,8 +7,6 @@ BREADCRUMBS
 
 Search for restaurants by name or address. With the queried results, you can select and add a restaurant that you have visited to your own personal map, leaving behind a trail of breadcrumbs for your restaurant history. Connect with friends to see where your friends have dined at and what dishes they've tried. Breadcrumbs is a social media network built for foodies.
 
-TESTSSSSSSSSSSSSSSSSS
-
 Breadcrumbs is created with love, sweat, and tears by Ashley Hsiao. You can connect with Ashley by [email](mailto:aiyihsiao@gmail.com), [LinkedIn](http://linkedin.com/in/ashleyhsia0), or [Twitter](http://twitter.com/ashleyhsia0).
 
 ## Table of Contents

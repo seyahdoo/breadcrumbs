@@ -7,6 +7,8 @@ from model import connect_to_db, db
 
 from server import app
 
+from yelp_api_call import load_restaurants
+
 
 def set_val_restaurant_id():
     """Set value for the next restaurant_id after seeding database"""
@@ -32,5 +34,5 @@ if __name__ == "__main__":
     db.create_all()
 
     # Import different types of data
-    #load_restaurants("Sunnyvale")
+    load_restaurants("Sunnyvale")
     set_val_restaurant_id()
