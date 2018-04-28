@@ -25,7 +25,9 @@ def index():
     """Homepage."""
 
     # look for user, if not user
-    if not hasattr(session, 'current_user'):
+    try:
+        session["current_user"]["user_id"]
+    except Exception as e:
         # go to login
         return redirect("/login")
 
