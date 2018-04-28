@@ -64,9 +64,9 @@ class Issue(db.Model):
     attachments = db.relationship("Attachment", backref=db.backref("attachments"))
     logs= db.relationship("IssueLog",  backref=db.backref("logs"))
     reports= db.relationship("IssueReport", backref=db.backref("reports"))
-    interruptions=db.relationship("Interruption", secondary="interruptions", backref="interruptions")
+    interruptions=db.relationship("Issue", secondary="interruptions", backref="interruptions")
 
-
+    
 class Interruption(db.Model):
 
         __tablename__ = "interruptions"
@@ -75,8 +75,8 @@ class Interruption(db.Model):
         master_id= db.Column(db.Integer, db.ForeignKey('issues.issue_id'), nullable=False)
         slave_id = db.Column(db.Integer, db.ForeignKey('issues.issue_id'), nullable=False)
 
-        user_a = db.relationship("User", foreign_keys=[master_id], backref=db.backref("master"))
-        user_b = db.relationship("User", foreign_keys=[slave_id], backref=db.backref("slave"))
+        master_a = db.relationship("Issue", foreign_keys=[master_id], backref=db.backref("master"))
+        slave_b = db.relationship("Issue", foreign_keys=[slave_id], backref=db.backref("slave"))
 
 
 class IssueState(db.Model):
@@ -135,7 +135,7 @@ class IssueReport(db.Model):
     issue_report_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     issue_id = db.Column(db.Integer, db.ForeignKey('issues.issue_id'), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=True)
-    attachments=db.relationship("Attachment", backref="attachments")
+    attachments=db.relationship("Attachment", backref=db.backref("attachments"))
     message = db.Column(db.String(400), nullable=True)
     date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
