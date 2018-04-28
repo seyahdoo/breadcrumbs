@@ -97,6 +97,7 @@
       <!-- Display flash messages if any -->
       <script type="text/javascript">
         toastr.danger = toastr.warning
+        toastr.options = { "positionClass": "toast-bottom-right" }
 
         {% for category, message in messages %}
           toastr.{{category}}('{{ message }}')
