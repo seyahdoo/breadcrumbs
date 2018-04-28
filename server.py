@@ -177,7 +177,7 @@ def my_issues():
 def department_issues():
     """Show department issue list to be assigned to technician"""
 
-    
+
 
     return render_template(issue_list)
 
@@ -190,7 +190,7 @@ def eleman_ata():
     issue_id = request.args.get('issue_id')
     user_id = request.args.get('user_id')
 
-
+    # do assigning
 
     flash("You have succesfully assigned technician to work.", "success")
     return redirect("/department_issues")
