@@ -30,8 +30,10 @@ class User(db.Model):
     last_name = db.Column(db.String(100), nullable=False)
     worked_department=db.Column(db.Integer, db.ForeignKey('departments.department_id'), nullable=False)
     active=db.Column(db.Boolean, nullable=False)
-    entered_issues=db.relationship("Issue", backref=db.backref("entered_issues"))
-    solving_issues=db.relationship("Issue", backref=db.backref("solving_issues"))
+
+
+    entered_issues=db.relationship("Issue", foreign_keys=[issues.issuer_id], backref=db.backref("entered_issues"))
+    solving_issues=db.relationship("Issue", foreign_keys=[issues.solver_id], backref=db.backref("solving_issues"))
 
 
 
