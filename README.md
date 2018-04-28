@@ -41,6 +41,10 @@ $ sudo apt-get update
 
 $ sudo apt-get install -y mongodb-org
 
+```
+
+Start MongoDB
+```
 $ sudo service mongod start
 ```
 
@@ -62,6 +66,10 @@ $ source env/bin/activate
 Install the dependencies:
 
 ```$ pip install -r requirements.txt```
+
+if you have older versions of requirements you can force reinstall newer versions
+
+```$ pip install --upgrade --force-reinstall -r requirements.txt```
 
 Run MongoDB.
 
