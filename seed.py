@@ -26,7 +26,7 @@ def set_val_restaurant_id():
 
 if __name__ == "__main__":
 
-    # NUKE db
+    # NUKE DB
     # createuser dbuser
     # ALTER USER dbuser PASSWORD '1234';
     # ALTER USER dbuser WITH SUPERUSER;
