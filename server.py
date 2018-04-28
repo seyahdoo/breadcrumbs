@@ -25,7 +25,22 @@ sentry = Sentry(app)
 def index():
     """Homepage."""
 
-    return render_template("homepage.html")
+    # look for user, if not user
+    # go to login
+
+    # if technician
+    # go to my_issues
+
+    # if shef
+    # go to department_issues
+
+    # if excecutive
+    # go to reports
+
+    # if admin
+    # go to admin control panel
+
+    return redirect("/new_issue")
 
 
 @app.route("/login", methods=["GET"])
@@ -57,7 +72,7 @@ def login():
 
     flash("Welcome {}. You have successfully logged in.".format(current_user.first_name), "success")
 
-    return redirect("/users/{}".format(current_user.user_id))
+    return redirect("/")
 
 
 @app.route("/logout")
@@ -107,7 +122,7 @@ def signup():
 
         flash("You have succesfully signed up for an account, and you are now logged in.", "success")
 
-        return redirect("/users/%s" % new_user.user_id)
+        return redirect("/")
 
     flash("An account already exists with this email address. Please login.", "danger")
 
@@ -117,18 +132,31 @@ def signup():
 @app.route("/issue/<int:issue_id>",  methods=["GET"])
 def show_spesific_issue(issue_id):
     """Show spesific issue"""
-    return "TODO"
+
+    #grab spesific issue data from db
+
+    #if user have access
+
+    #add to session
+
+    return render_template("show_issue.html")
 
 
 @app.route("/new_issue",  methods=["GET"])
 def new_issue_form():
     """Show new issue Form"""
-    return "TODO"
+
+    return render_template("issue_form.html")
 
 
 @app.route("/new_issue",  methods=["POST"])
 def new_issue_post():
     """File a new issue"""
+
+    
+
+
+
     return "TODO"
 
 
