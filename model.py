@@ -30,8 +30,8 @@ class User(db.Model):
     last_name = db.Column(db.String(100), nullable=False)
     worked_department=db.Column(db.Integer, db.ForeignKey('departments.department_id'), nullable=False)
     active=db.Column(db.Boolean, nullable=False)
-
-
+    entered_issues=db.relationship("Issue", backref=db.backref("entered_issues"))
+    solving_issues=db.relationship("Issue", backref=db.backref("solving_issues"))
 
 
 
@@ -57,6 +57,7 @@ class Issue(db.Model):
     solver_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=True)
     type_id = db.Column(db.Integer, db.ForeignKey('issuetypes.type_id'), nullable=True)
     state_id = db.Column(db.Integer, db.ForeignKey('issuestates.state_id'), nullable=True)
+    role=db.Column(db.String(30), nullable=False)
     entry_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     finish_date = db.Column(db.DateTime, nullable=True)
     summary = db.Column(db.String(140), nullable=True)
@@ -109,9 +110,8 @@ class Department(db.Model):
 
     department_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     parent_department = db.Column(db.Integer, db.ForeignKey('departments.department_id'), nullable=True)
-    supervisor_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=True)
     name = db.Column(db.String(100), nullable=False)
-
+    issue_list=db.relationship("Issue", backref=db.backref("issue_list"))
 
 
 class IssueLog(db.Model):
