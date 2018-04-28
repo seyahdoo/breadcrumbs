@@ -137,6 +137,13 @@ def my_issues():
     """Show my attended issue list"""
     return "TODO"
 
+
+@app.route("/department_issues",  methods=["GET"])
+def department_issues():
+    """Show department issue list to be assigned to technician"""
+    return "TODO"
+
+
 # eleman_ata?issue_id=1203&user_id=2201
 @app.route("/eleman_ata",  methods=["GET"])
 def eleman_ata():
