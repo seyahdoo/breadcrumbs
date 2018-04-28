@@ -22,11 +22,7 @@ if __name__ == "__main__":
         isolation_level='AUTOCOMMIT')
     conn = engine.connect()
 
-    try:
-        conn.execute("drop database issuetracker")
-    except Exception as e:
-        pass
-
+    conn.execute("drop database issuetracker")
     conn.execute("create database issuetracker")
     conn.close()
 
