@@ -29,9 +29,7 @@ Issue Tracker is created with love, sweat, and tears by Ashley Hsiao. You can co
 
 ### Prerequisite:
 
-Install [MongoDB](https://www.mongodb.com/).
-
-(On Ubuntu 16)
+Install [MongoDB](https://www.mongodb.com/). You can use commands below in Ubuntu 16.4.
 ```
 $ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
 
@@ -40,7 +38,6 @@ $ echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mong
 $ sudo apt-get update
 
 $ sudo apt-get install -y mongodb-org
-
 ```
 
 Start MongoDB
