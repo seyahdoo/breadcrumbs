@@ -153,23 +153,33 @@ def new_issue_form():
 def new_issue_post():
     """File a new issue"""
 
-    
+    #Create new issue
 
+    #populate issue
 
-
-    return "TODO"
+    flash("You have succesfully filed an issue.", "success")
+    # TODO redirect to issue id
+    return redirect("/")
 
 
 @app.route("/my_issues",  methods=["GET"])
 def my_issues():
     """Show my attended issue list"""
-    return "TODO"
+
+    # grab issues from database
+
+    #add to the session
+
+    return render_template(issue_list.html)
 
 
 @app.route("/department_issues",  methods=["GET"])
 def department_issues():
     """Show department issue list to be assigned to technician"""
-    return "TODO"
+
+    
+
+    return render_template(issue_list)
 
 
 # eleman_ata?issue_id=1203&user_id=2201
@@ -180,7 +190,10 @@ def eleman_ata():
     issue_id = request.args.get('issue_id')
     user_id = request.args.get('user_id')
 
-    return "TODO"
+
+
+    flash("You have succesfully assigned technician to work.", "success")
+    return redirect("/department_issues")
 
 
 @app.route("/error")
