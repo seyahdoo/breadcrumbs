@@ -7,22 +7,22 @@
   <div class="container" id="main-section">
     <div class="panel panel-default login-signup">
       <div class="panel-heading">
-        <h1 class="panel-title">login</h1>
+        <h1 class="panel-title" align="center">Giriş</h1>
       </div><!-- /.panel-heading -->
       <div class="panel-body">
         <form action="/login" method="post">
-          <label for="email">Email address</label>
-          <input type="email" id="email" class="form-control" name="login_email" placeholder="example@gmail.com" required autofocus>
-          <label for="password">Password</label>
+          <label for="email">E-mail</label>
+          <input type="email" id="email" class="form-control" name="login_email" placeholder="ornek@gmail.com" required autofocus>
+          <label for="password">Şifre</label>
           <input type="password" id="password" class="form-control" name="login_password" placeholder="**********" required>
-          <button class="btn btn-lg btn-primary btn-block btn-homepage" type="submit"><span class="fa fa-sign-in" aria-hidden="true"></span> Login</button>
+          <button class="btn btn-lg btn-primary btn-block btn-homepage" type="submit"><span class="fa fa-sign-in" aria-hidden="true"></span> Giriş</button>
         </form>
         <br>
         <p>
-          Don't have an account? <a href="/signup">Sign up here</a>
-        </p>      
+          Hesabınız yok mu? <a href="/signup">Kayıt ol</a>
+        </p>
       </div><!-- /.panel-body-->
     </div><!-- /.panel -->
   </div><!-- /.container -->
-  
+
 {% endblock %}
