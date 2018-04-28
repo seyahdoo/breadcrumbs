@@ -31,7 +31,20 @@ Issue Tracker is created with love, sweat, and tears by Ashley Hsiao. You can co
 
 Install [MongoDB](https://www.mongodb.com/).
 
-MongoDB needs to be running while app is running, dont forget to start it after installiation
+(On Ubuntu 16)
+```
+$ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
+
+$ echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.6.list
+
+$ sudo apt-get update
+
+$ sudo apt-get install -y mongodb-org
+
+$ sudo service mongod start
+```
+
+Also, you can install [Robo3T](https://robomongo.org/) if you want to control MongoDB via GUI
 
 ### Set up Breadcrumbs:
 
