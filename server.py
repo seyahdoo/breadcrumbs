@@ -67,6 +67,7 @@ def login():
     session["current_user"] = {
         "first_name": current_user.first_name,
         "user_id": current_user.user_id
+        "role": current_user.role
     }
 
     flash("Welcome {}. You have successfully logged in.".format(current_user.first_name), "success")
