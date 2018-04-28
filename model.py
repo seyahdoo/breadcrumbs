@@ -28,8 +28,9 @@ class User(db.Model):
     password = db.Column(db.String(100), nullable=False)
     first_name = db.Column(db.String(100), nullable=False)
     last_name = db.Column(db.String(100), nullable=False)
-    worked_department=db.Column(db.Integer, db.ForeignKey('departments.department_id'), nullable=False)
-    active=db.Column(db.Boolean, nullable=False)
+    worked_department=db.Column(db.Integer, db.ForeignKey('departments.department_id'), nullable=True)
+    active=db.Column(db.Boolean, nullable=True)
+    role=db.Column(db.String(30), nullable=False)
 
 
     entered_issues=db.relationship("Issue", backref=db.backref("entered_issues"))
@@ -57,7 +58,6 @@ class Issue(db.Model):
     issuer_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)#solver_id could be added
     type_id = db.Column(db.Integer, db.ForeignKey('issuetypes.type_id'), nullable=True)
     state_id = db.Column(db.Integer, db.ForeignKey('issuestates.state_id'), nullable=True)
-    role=db.Column(db.String(30), nullable=False)
     entry_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     finish_date = db.Column(db.DateTime, nullable=True)
     summary = db.Column(db.String(140), nullable=True)

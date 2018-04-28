@@ -7,8 +7,7 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, redirect, request, flash, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import User
-from model import connect_to_db, db
+from model import *
 
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy_searchable import search
@@ -106,11 +105,11 @@ def signup():
         db.session.query(User).filter(User.email == signup_email).one()
 
     except NoResultFound:
-        new_user = User(city_id=city_id,
-                        email=signup_email,
+        new_user = User(email=signup_email,
                         password=signup_password,
                         first_name=first_name,
-                        last_name=last_name)
+                        last_name=last_name,
+                        role="Issue_Enterer")
         db.session.add(new_user)
         db.session.commit()
 
@@ -133,13 +132,32 @@ def signup():
 def show_spesific_issue(issue_id):
     """Show spesific issue"""
 
-    #grab spesific issue data from db
+    # grab spesific issue data from db
+    try:
+        iss = db.session.query(Issue).filter(Issue.issue_id == issue_id).one()
 
-    #if user have access
+        # TODO if user have access
 
-    #add to session
+        # add to session
 
-    return render_template("show_issue.html")
+
+        session["issue"] = {
+            "summary": iss.summary,
+            "detail_text": iss.detail_text,
+            "entry_date": iss.entry_date,
+            "finish_date": iss.finish_date,
+            "issuer_id": iss.issuer_id,
+            "department_id": iss.department_id,
+            "type_id": iss.type_id
+        }
+
+        return render_template("show_issue.html")
+    except Exception as e:
+        flash("Could not found spesific issue.", "danger")
+        return redirect("/")
+
+
+    return redirect("/")
 
 
 @app.route("/new_issue",  methods=["GET"])
@@ -154,6 +172,15 @@ def new_issue_post():
     """File a new issue"""
 
     #Create new issue
+    """
+    new_issue = Issue(
+                    email=signup_email,
+                    password=signup_password,
+                    first_name=first_name,
+                    last_name=last_name)
+    db.session.add(new_user)
+    db.session.commit()
+    """
 
     #populate issue
 
