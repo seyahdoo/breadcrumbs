@@ -20,7 +20,12 @@ if __name__ == "__main__":
         "postgresql://dbuser:1234@localhost",
         isolation_level='AUTOCOMMIT')
     conn = engine.connect()
-    conn.execute("drop database issuetracker")
+
+    try:
+        conn.execute("drop database issuetracker")
+    except Exception as e:
+        pass
+        
     conn.execute("create database issuetracker")
     conn.close()
 

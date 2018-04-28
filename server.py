@@ -7,9 +7,8 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, redirect, request, flash, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import User, Restaurant, Visit, Category, City, RestaurantCategory, Image, Connection
+from model import User
 from model import connect_to_db, db
-from friends import is_friends_or_pending, get_friend_requests, get_friends
 
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy_searchable import search
