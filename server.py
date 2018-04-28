@@ -25,7 +25,10 @@ def index():
     """Homepage."""
 
     # look for user, if not user
-    # go to login
+    if not hasattr(session, 'current_user'):
+        # go to login
+        return redirect("/login")
+
 
     # if technician
     # go to my_issues
