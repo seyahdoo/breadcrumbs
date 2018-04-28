@@ -95,11 +95,12 @@ class IssueType(db.Model):
     type_name = db.Column(db.String(30), nullable=False)
 
 class Attachment(db.Model):
-    __tablename= "attachments"
 
-    attachment_id=b.Column(db.Integer, nullable=False)
-    issue_id=b.Column(db.Integer,db.ForeignKey('issues.issue_id'),  nullable=False)
-    attachment_path=b.Column(db.String(1000), nullable=False)
+    __tablename__= "attachments"
+
+    attachment_id=db.Column(db.Integer,autoincrement=True, primary_key=True)
+    issue_id=db.Column(db.Integer,db.ForeignKey('issues.issue_id'),  nullable=False)
+    attachment_path=db.Column(db.String(1000), nullable=False)
 
 
 class Department(db.Model):
@@ -146,57 +147,10 @@ def connect_to_db(app, db_uri=None):
     """Connect the database to our Flask app."""
 
     # Configure to use our PostgreSQL database
-    app.config['SQLALCHEMY_DATABASE_URI'] = db_uri or 'postgresql:///services'
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_uri or 'postgresql://dbuser:1234@localhost/issuetracker'
     app.config['SQLALCHEMY_ECHO'] = True
     db.app = app
     db.init_app(app)
-
-def example_data():
-    """Create some sample data for testing."""
-
-    van = City(name="Vancouver")
-
-    chambar = Restaurant(city_id=1,
-                         name="Chambar",
-                         address="568 Beatty St, Vancouver, BC V6B 2L3",
-                         phone="(604) 879-7119",
-                         latitude=49.2810018,
-                         longitude=-123.1109668)
-
-    miku = Restaurant(city_id=1,
-                      name="Miku",
-                      address="200 Granville St #70, Vancouver, BC V6C 1S4",
-                      phone="(604) 568-3900",
-                      latitude=49.2868017,
-                      longitude=-123.1131884)
-
-    fable = Restaurant(city_id=1,
-                       name="Fable",
-                       address="1944 W 4th Ave, Vancouver, BC V6J 1M7",
-                       phone="(604) 732-1322",
-                       latitude=49.2679389,
-                       longitude=-123.2190482)
-
-    ashley = User(city_id=1,
-                  email="ashley@test.com",
-                  password="ashley",
-                  first_name="Ashley",
-                  last_name="Test")
-
-    bob = User(city_id=1,
-               email="bob@test.com",
-               password="bob",
-               first_name="Bob",
-               last_name="Test")
-
-    cat = User(city_id=1,
-               email="cat@test.com",
-               password="cat",
-               first_name="Cat",
-               last_name="Test")
-
-    db.session.add_all([van, chambar, miku, fable, ashley, bob, cat])
-    db.session.commit()
 
 
 if __name__ == "__main__":
