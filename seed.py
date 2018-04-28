@@ -12,6 +12,7 @@ if __name__ == "__main__":
     # NUKE DB
     # sudo su postgres
     # createuser dbuser
+    # createdb dbuser
     # psql
     # ALTER USER dbuser PASSWORD '1234';
     # ALTER USER dbuser WITH SUPERUSER;
@@ -25,7 +26,7 @@ if __name__ == "__main__":
         conn.execute("drop database issuetracker")
     except Exception as e:
         pass
-        
+
     conn.execute("create database issuetracker")
     conn.close()
 
