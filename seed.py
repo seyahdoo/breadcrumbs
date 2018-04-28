@@ -1,6 +1,7 @@
 """Utility file to seed info from Yelp API into the breadcrumbs database"""
 
 from sqlalchemy import func
+import sqlalchemy
 
 from model import Restaurant
 from model import connect_to_db, db
@@ -24,6 +25,20 @@ def set_val_restaurant_id():
 
 
 if __name__ == "__main__":
+
+    # NUKE db
+    # createuser dbuser
+    # ALTER USER dbuser PASSWORD '1234';
+    # ALTER USER dbuser WITH SUPERUSER;
+
+    engine = sqlalchemy.create_engine(
+        "postgresql://dbuser:1234@localhost",
+        isolation_level='AUTOCOMMIT')
+    conn = engine.connect()
+    conn.execute("drop database breadcrumbs")
+    conn.execute("create database breadcrumbs")
+    conn.close()
+
     connect_to_db(app)
 
     # Configure mappers before creating tables in order for search trigger in
@@ -33,6 +48,8 @@ if __name__ == "__main__":
     # In case tables haven't been created, create them
     db.create_all()
 
-    # Import different types of data
+    db.session.commit()
+
+        # Import different types of data
     load_restaurants("Sunnyvale")
     set_val_restaurant_id()
