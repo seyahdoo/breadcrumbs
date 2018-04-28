@@ -121,7 +121,7 @@ Finally, to run the app, start the server:
 
 ```$ python server.py```
 
-Go to `localhost:5000` in your browser to start using Breadcrumbs!
+Go to `localhost:8080` in your browser to start using Breadcrumbs!
 
 ## <a name="testing"></a>Testing & Coverage
 Unit Tests, Integration Tests, and Selenium Tests have been implemented.
