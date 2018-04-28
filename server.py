@@ -66,7 +66,7 @@ def login():
     # Use a nested dictionary for session["current_user"] to store more than just user_id
     session["current_user"] = {
         "first_name": current_user.first_name,
-        "user_id": current_user.user_id
+        "user_id": current_user.user_id,
         "role": current_user.role
     }
 
