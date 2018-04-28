@@ -1,38 +1,14 @@
-"""Utility file to seed info from Yelp API into the breadcrumbs database"""
 
-from sqlalchemy import func
-import sqlalchemy
-
-from model import connect_to_db, db
-
-from server import app
+import database
+import datetime
 
 if __name__ == "__main__":
 
-    # NUKE DB
-    # sudo su postgres
-    # createuser dbuser
-    # createdb dbuser
-    # psql
-    # ALTER USER dbuser PASSWORD '1234';
-    # ALTER USER dbuser WITH SUPERUSER;
+    post = {"author": "mikey",
+            "text": "My first blog post!",
+            "tags": ["mongodb", "python", "pymongo"],
+            "date": datetime.datetime.utcnow()}
 
-    engine = sqlalchemy.create_engine(
-        "postgresql://dbuser:1234@localhost",
-        isolation_level='AUTOCOMMIT')
-    conn = engine.connect()
+    post_id = database.posts.insert_one(post).inserted_id
 
-    conn.execute("drop database issuetracker")
-    conn.execute("create database issuetracker")
-    conn.close()
-
-    connect_to_db(app)
-
-    # Configure mappers before creating tables in order for search trigger in
-    # SQLAlchemy-Searchable to work properly
-    db.configure_mappers()
-
-    # In case tables haven't been created, create them
-    db.create_all()
-
-    db.session.commit()
+    print(post_id)

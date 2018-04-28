@@ -1,16 +1,10 @@
-"""Breadcrumbs: Tracking a user's restaurant history"""
-
 import os
 
 from jinja2 import StrictUndefined
 
-from flask import Flask, render_template, redirect, request, flash, session, jsonify
-from flask_debugtoolbar import DebugToolbarExtension
+from flask import Flask, render_template, redirect, request, flash, session
 
-from model import *
-
-from sqlalchemy.orm.exc import NoResultFound
-from sqlalchemy_searchable import search
+from database import *
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get("FLASK_SECRET_KEY", "abcdef")
@@ -61,21 +55,22 @@ def login():
     login_email = request.form.get("login_email")
     login_password = request.form.get("login_password")
 
-    try:
-        current_user = db.session.query(User).filter(User.email == login_email,
-                                                     User.password == login_password).one()
-    except NoResultFound:
+    current_user = users.find_one({"email": login_email, "password": login_password})
+
+    if current_user is None:
         flash("The email or password you have entered did not match our records. Please try again.", "danger")
         return redirect("/login")
 
+    print(current_user)
+
     # Use a nested dictionary for session["current_user"] to store more than just user_id
     session["current_user"] = {
-        "first_name": current_user.first_name,
-        "user_id": current_user.user_id,
-        "role": current_user.role
+        "first_name": current_user["first_name"],
+        "user_id": str(current_user["_id"]),
+        "role": current_user["role"]
     }
 
-    flash("Welcome {}. You have successfully logged in.".format(current_user.first_name), "success")
+    flash("Welcome {}. You have successfully logged in.".format(current_user["first_name"]), "success")
 
     return redirect("/")
 
@@ -107,30 +102,26 @@ def signup():
     first_name = request.form.get("first_name")
     last_name = request.form.get("last_name")
 
-    try:
-        db.session.query(User).filter(User.email == signup_email).one()
+    current_user = users.find_one({"email": signup_email})
 
-    except NoResultFound:
-        new_user = User(email=signup_email,
-                        password=signup_password,
-                        first_name=first_name,
-                        last_name=last_name,
-                        role="Issue_Enterer")
-        db.session.add(new_user)
-        db.session.commit()
+    if current_user is None:
+        new_user = {"email": signup_email,
+                    "password": signup_password,
+                    "first_name": first_name,
+                    "last_name": last_name,
+                    "role": "Issue_Enterer"}
+        new_user_id = users.insert_one(new_user).inserted_id
 
         # Add same info to session for new user as per /login route
         session["current_user"] = {
-            "first_name": new_user.first_name,
-            "user_id": new_user.user_id
+            "first_name": new_user["first_name"],
+            "user_id": str(new_user_id)
         }
 
         flash("You have succesfully signed up for an account, and you are now logged in.", "success")
-
         return redirect("/")
 
     flash("An account already exists with this email address. Please login.", "danger")
-
     return redirect("/login")
 
 
@@ -140,22 +131,22 @@ def show_spesific_issue(issue_id):
 
     # grab spesific issue data from db
     try:
-        iss = db.session.query(Issue).filter(Issue.issue_id == issue_id).one()
+        a = 1
+        #iss = db.session.query(Issue).filter(Issue.issue_id == issue_id).one()
 
         # TODO if user have access
 
         # add to session
 
-
-        session["issue"] = {
-            "summary": iss.summary,
-            "detail_text": iss.detail_text,
-            "entry_date": iss.entry_date,
-            "finish_date": iss.finish_date,
-            "issuer_id": iss.issuer_id,
-            "department_id": iss.department_id,
-            "type_id": iss.type_id
-        }
+        #session["issue"] = {
+        #    "summary": iss.summary,
+        #    "detail_text": iss.detail_text,
+        #    "entry_date": iss.entry_date,
+        #    "finish_date": iss.finish_date,
+        #    "issuer_id": iss.issuer_id,
+        #    "department_id": iss.department_id,
+        #    "type_id": iss.type_id
+        #}
 
         return render_template("show_issue.html")
     except Exception as e:
@@ -239,8 +230,8 @@ if __name__ == "__main__":
     app.debug = True
 
     # connect_to_db(app)
-    connect_to_db(app, os.environ.get("DATABASE_URL"))
-    db.create_all()
+    #connect_to_db(app, os.environ.get("DATABASE_URL"))
+    #db.create_all()
 
     # Use the DebugToolbar
     # DebugToolbarExtension(app)
