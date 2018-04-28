@@ -61,12 +61,11 @@ class Issue(db.Model):
     finish_date = db.Column(db.DateTime, nullable=True)
     summary = db.Column(db.String(140), nullable=True)
     detail_text = db.Column(db.String(400), nullable=True)
-    attachments = db.relationship("Attachment", backref=db.backref("attachments"))
+    attachments = db.relationship("Attachment", backref=db.backref("issue_attachments"))
     logs= db.relationship("IssueLog",  backref=db.backref("logs"))
     reports= db.relationship("IssueReport", backref=db.backref("reports"))
-    interruptions=db.relationship("Issue", secondary="interruptions", backref="interruptions")
 
-    
+
 class Interruption(db.Model):
 
         __tablename__ = "interruptions"
@@ -101,7 +100,7 @@ class Attachment(db.Model):
     attachment_id=db.Column(db.Integer,autoincrement=True, primary_key=True)
     issue_id=db.Column(db.Integer,db.ForeignKey('issues.issue_id'),  nullable=False)
     attachment_path=db.Column(db.String(1000), nullable=False)
-
+    report_id=db.Column(db.Integer, db.ForeignKey('issuereports.issue_report_id'), nullable=False)
 
 class Department(db.Model):
     """Department info."""
