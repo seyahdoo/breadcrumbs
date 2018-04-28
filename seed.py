@@ -10,7 +10,9 @@ from server import app
 if __name__ == "__main__":
 
     # NUKE DB
+    # sudo su postgres
     # createuser dbuser
+    # psql
     # ALTER USER dbuser PASSWORD '1234';
     # ALTER USER dbuser WITH SUPERUSER;
 
@@ -18,8 +20,8 @@ if __name__ == "__main__":
         "postgresql://dbuser:1234@localhost",
         isolation_level='AUTOCOMMIT')
     conn = engine.connect()
-    conn.execute("drop database breadcrumbs")
-    conn.execute("create database breadcrumbs")
+    conn.execute("drop database issuetracker")
+    conn.execute("create database issuetracker")
     conn.close()
 
     connect_to_db(app)
