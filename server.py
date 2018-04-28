@@ -197,7 +197,7 @@ def my_issues():
 
     #add to the session
 
-    return render_template(issue_list.html)
+    return render_template("issue_list.html")
 
 
 @app.route("/department_issues",  methods=["GET"])
