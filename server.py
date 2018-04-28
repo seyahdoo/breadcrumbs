@@ -114,6 +114,40 @@ def signup():
     return redirect("/login")
 
 
+@app.route("/issue/<int:issue_id>",  methods=["GET"])
+def show_spesific_issue(issue_id):
+    """Show spesific issue"""
+    return "TODO"
+
+
+@app.route("/new_issue",  methods=["GET"])
+def new_issue_form():
+    """Show new issue Form"""
+    return "TODO"
+
+
+@app.route("/new_issue",  methods=["POST"])
+def new_issue_post():
+    """File a new issue"""
+    return "TODO"
+
+
+@app.route("/my_issues",  methods=["GET"])
+def my_issues():
+    """Show my attended issue list"""
+    return "TODO"
+
+# eleman_ata?issue_id=1203&user_id=2201
+@app.route("/eleman_ata",  methods=["GET"])
+def eleman_ata():
+    """Show my attended issue list"""
+
+    issue_id = request.args.get('issue_id')
+    user_id = request.args.get('user_id')
+
+    return "TODO"
+
+
 @app.route("/error")
 def error():
     raise Exception("Error!")
