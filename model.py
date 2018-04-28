@@ -32,9 +32,8 @@ class User(db.Model):
     active=db.Column(db.Boolean, nullable=False)
 
 
-    entered_issues=db.relationship("Issue", foreign_keys=[issues.issuer_id], backref=db.backref("entered_issues"))
-    solving_issues=db.relationship("Issue", foreign_keys=[issues.solver_id], backref=db.backref("solving_issues"))
-
+    entered_issues=db.relationship("Issue", backref=db.backref("entered_issues"))
+    #solving_issues
 
 
 
@@ -55,8 +54,7 @@ class Issue(db.Model):
 
     issue_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     department_id = db.Column(db.Integer, db.ForeignKey('departments.department_id'), nullable=False)
-    issuer_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
-    solver_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=True)
+    issuer_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)#solver_id could be added
     type_id = db.Column(db.Integer, db.ForeignKey('issuetypes.type_id'), nullable=True)
     state_id = db.Column(db.Integer, db.ForeignKey('issuestates.state_id'), nullable=True)
     role=db.Column(db.String(30), nullable=False)
@@ -67,6 +65,7 @@ class Issue(db.Model):
     attachments = db.relationship("Attachment", backref=db.backref("issue_attachments"))
     logs= db.relationship("IssueLog",  backref=db.backref("logs"))
     reports= db.relationship("IssueReport", backref=db.backref("reports"))
+
 
 
 class Interruption(db.Model):
