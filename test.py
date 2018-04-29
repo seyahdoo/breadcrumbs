@@ -3,6 +3,7 @@
 
 from database import *
 import datetime
+import logic
 
 def run_test():
 
@@ -33,6 +34,8 @@ def run_test():
         "role": "mesele_girici"
     }
     user2_id = users.insert_one(user2).inserted_id
+
+    logic.add_user("recai","deli","testerrecai@seyahdoo.com","4321","05062604798")
 
     tech1 = {
         "phone_number": "05062602222",
@@ -82,7 +85,7 @@ def run_test():
         "detail_text": "sorunlarımızı girebileceğimiz bir sistem yapın lütfen",
         "attachments": [],
         "logs": [],
-        "reports": []
+        "reports": [],
         "interruptions": []
     }
     issue1_id = issues.insert_one(issue1).inserted_id
