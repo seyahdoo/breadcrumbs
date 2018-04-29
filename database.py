@@ -17,6 +17,7 @@ departments = db.departments
 issuelogs = db.issuelogs
 issuereports = db.issuereports
 
+# debug collection
 posts = db.posts
 
 
@@ -30,9 +31,3 @@ if __name__ == "__main__":
     post_id = posts.insert_one(post).inserted_id
 
     print(post_id)
-
-
-
-
-
-
