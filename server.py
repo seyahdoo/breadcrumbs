@@ -161,6 +161,8 @@ def show_spesific_issue(issue_id):
 def new_issue_form():
     """Show new issue Form"""
 
+    session.data = [{"name":"asda"},{"name":"qwe"},{"name":"zxc"}]
+
     return render_template("issue_form.html")
 
 
@@ -181,9 +183,9 @@ def new_issue_post():
 
     #populate issue
 
-    flash("You have succesfully filed an issue.", "success")
+    flash("You have successfully filed an issue.", "success")
     # TODO redirect to issue id
-    return redirect("/")
+    return render_template("issue_form.html")
 
 
 @app.route("/my_issues",  methods=["GET"])
@@ -201,9 +203,7 @@ def my_issues():
 def department_issues():
     """Show department issue list to be assigned to technician"""
 
-
-
-    return render_template(issue_list)
+    return render_template("issue_list.html")
 
 
 # eleman_ata?issue_id=1203&user_id=2201
@@ -216,7 +216,7 @@ def eleman_ata():
 
     # do assigning
 
-    flash("You have succesfully assigned technician to work.", "success")
+    flash("You have successfully assigned technician to work.", "success")
     return redirect("/department_issues")
 
 
@@ -229,10 +229,6 @@ if __name__ == "__main__":
     # Set debug=True here to invoke the DebugToolbarExtension
     app.debug = True
 
-    # connect_to_db(app)
-    #connect_to_db(app, os.environ.get("DATABASE_URL"))
-    #db.create_all()
-
     # Use the DebugToolbar
     # DebugToolbarExtension(app)
 
@@ -240,4 +236,4 @@ if __name__ == "__main__":
     DEBUG = "NO_DEBUG" not in os.environ
 
     # app.run()
-    app.run(host="0.0.0.0", port=PORT, debug=DEBUG)
+    app.run(host="localhost", port=PORT, debug=DEBUG)

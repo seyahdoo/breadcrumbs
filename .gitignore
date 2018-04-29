@@ -3,3 +3,5 @@ env/
 secrets.sh
 config_secret.json
 .DS_Store
+venv/
+.idea/

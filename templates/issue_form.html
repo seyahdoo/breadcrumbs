@@ -16,16 +16,22 @@
         <!-- yukarıdaki linkten dbdeki verilerle select tasarlama örneği -->
         <span class="input-group-addon">Departman</span>
         <select name="departman_id" class="selectpicker form-control">
-              {% for o in data %}
-              <option value="{{ o.name }}">{{ o.name }}</option>
-              {% endfor %}
+            {% if session.data %}
+                {% for o in session.data %}
+                <option value="{{ o.name }}">{{ o.name }}</option>
+                {% endfor %}
+            {% else %}
+            {% endif %}
         </select>
 
          <span class="input-group-addon">Birim</span>
         <select name="birim_id" class="selectpicker form-control">
-             {% for o in data %}
-             <option value="{{ o.name }}">{{ o.name }}</option>
-             {% endfor %}
+             {% if session.data %}
+                {% for o in session.data %}
+                <option value="{{ o.name }}">{{ o.name }}</option>
+                {% endfor %}
+            {% else %}
+            {% endif %}
         </select>
         <label>Mesaj Türü</label>
         <select name="IssueType" id="IssueType" class="validate[required] form-control input-lg">
