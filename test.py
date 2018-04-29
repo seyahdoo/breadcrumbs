@@ -83,6 +83,7 @@ def run_test():
         "attachments": [],
         "logs": [],
         "reports": []
+        "interruptions": []
     }
     issue1_id = issues.insert_one(issue1).inserted_id
 
