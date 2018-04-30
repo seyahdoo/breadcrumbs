@@ -3,8 +3,6 @@ TODO fix start of readme
 Issue Tracker
 ---
 
-<img align="center" src="/static/img/screenshots/homepage.png" width="700">
-
 **Issue Tracker** is a web application designed to let foodies search restaurants, track their eating history, as well as connect with friends. If you have trouble remembering what restaurants you’ve been to before, or what you’ve ordered at a restaurant that was good, then Breadcrumbs is your go-to app.
 
 Search for restaurants by name or address. With the queried results, you can select and add a restaurant that you have visited to your own personal map, leaving behind a trail of Issue Tracker for your restaurant history. Connect with friends to see where your friends have dined at and what dishes they've tried. Breadcrumbs is a social media network built for foodies.
