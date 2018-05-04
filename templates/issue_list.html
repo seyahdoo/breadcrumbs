@@ -2,6 +2,77 @@
 
 {% block title %}            {% endblock %}
 
-{% block content %}          {% endblock %}
+{% block content %}
+
+
+
+<div id="ctl00_home" class="home">
+  <div id="ctl00_divTop">
+      <div style="float:left;width:180px;height:120px;padding-left:15px">
+         <div id="divMainLogo" style="position:absolute;z-index:2;width:180px;height:120px;">
+          <img style="margin-top:-20px" src="Images/logoMain.png" alt="">
+      </div>
+      </div>
+      <div id="divTopCenter" style="float:left;width:540px;padding-top:30px;padding-left:20px">
+         <div style="border-bottom:solid 1px Gray;height:20px">
+            <div style="float:left;">
+              <a href="default.aspx" style="text-decoration:none;"><img src="Images/home.png" style="border-width:0;" alt="Ana Sayfa">&nbsp;Ana Sayfa </a>
+            </div>
+            <div style="float:left;margin-left:10px">
+              <a href="Help.aspx" style="text-decoration:none;"><img src="Images/yardim.png" style="border-width:0;" alt="Yardım">&nbsp;Yardım</a>
+            </div>
+
+            <div id="divOrderAlert" class="alrt" style="display: none;">S</div>
+            <div id="divOrderChat" class="alrt" style="display: none;">C</div>
+            <div style="float:left;visibility:hidden">
+               <embed src="Images/Media/hasOrder.mp3" autoplay="false" autostart="false" type="audio/mpeg" id="orderSound" width="1" height="1">
+               <embed src="Images/Media/hasChat.mp3" autoplay="false" autostart="false" type="audio/mpeg" id="orderChat" width="1" height="1">
+            </div>
+            <div id="ctl00_divWellcome" style="float:right;margin-top:2px">Hoşgeldin <b>Admin- Admin-</b></div>
+            <div style="clear:both"></div>
+         </div>
+         <div style="width:263px;height:28px;margin-top:10px; background-image:url('Images/market_yeni_adres.gif')"></div>
+      </div>
+      <div style="float:right;width:180px;padding-top:15px">
+          <div style="float:left;height:23px"><a href="uye-ol.aspx?ref=1" style="text-decoration:none">
+               <img style="border-width:0" src="Images/newAccount.gif" alt=""> Yeni Üye</a>
+          </div>
+          <div style="float:right;height:23px"><a href="uye-giris.aspx" style="text-decoration:none">
+               <img style="border-width:0" src="Images/login.gif" alt=""> Üye Girişi</a>
+          </div>
+          <div style="clear:both;height:0px"></div>
+          <!--<div id="ctl00_divMemberInfo" style="float:left;height:23px"><a href="UserAccount.aspx?ref=2" style="text-decoration:none">
+               <img style="border-width:0" src="Images/member_info.gif"  alt="" /> Üyelik Bilgilerim</a>
+          </div>-->
+
+          <div id="ctl00_divAdminMenu" style="float:left;height:25px; margin-top:2px">
+               <a href="AdminMenu.aspx" style="text-decoration:none">
+                   <img style="border-width:0" src="Images/normal.png" alt=""> Yönetim</a>
+          </div>
+
+          <div id="ctl00_divLogout" style="float:right;height:25px;margin-top:2px;margin-left:8px">
+               <a href="default.aspx?stt=1" style="text-decoration:none">
+                   <img style="border-width:0" src="Images/high.png" alt=""> Çıkış</a>
+          </div>
+          <div style="clear:both;height:0px"></div>
+          <!--
+
+          -->
+      </div>
+      <div style="clear:both"></div>
+  </div>
+  <div id="divMiddle" style="padding:0px;padding-bottom:25px;">
+
+<!--<style type="text/css">
+  .RadComboBoxDropDown{font-size:11px;Font-Names:verdana}
+</style>
+<link href="Css/Grid.Default.css" rel="stylesheet" type="text/css">-->
+
+
+
+
+
+
+     {% endblock %}
 
 {% block javascript %}       {% endblock %}

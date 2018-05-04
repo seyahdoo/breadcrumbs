@@ -19,8 +19,8 @@ h2,
 h3,
 h4,
 h5 {
-    font-family: Lato, sans-serif;
-    text-transform: uppercase;
+    font-family:Arial;
+
 }
 
 h3 {
@@ -168,32 +168,7 @@ h3 {
     opacity: 0.6;
 }
 
-/* --------- LOGIN/SIGNUP --------- */
 
-.login-signup {
-    width: 800px;
-    margin: auto;
-}
-
-.panel-title {
-    font-size: 24px;
-    padding: 5px;
-
-}
-
-.panel-default>.panel-heading {
-    background-color: #263248;
-    border-color: #263248;
-    color: #FFFFFF;
-}
-
-.form-control {
-    margin-bottom: 15px;
-}
-
-#disclaimer {
-    font-size: 80%;
-}
 
 /* --------- USER PROFILE --------- */
 .top-header {
@@ -284,4 +259,36 @@ h3 {
 
 #user-profile-pic-sm img {
     width: 100px;
+}
+
+/* --------- Mesele Oluştur--------- */
+#new_issue{
+    margin-bottom: 100px;
+}
+
+/* --------- LOGIN/SIGNUP --------- */
+
+.login-signup {
+    width: 800px;
+    margin: auto;
+}
+
+.panel-title {
+    font-size: 24px;
+    padding: 5px;
+
+}
+
+.panel-default>.panel-heading {
+    background-color: #263248;
+    border-color: #263248;
+    color: #FFFFFF;
+}
+
+.form-control {
+    margin-bottom: 15px;
+}
+
+#disclaimer {
+    font-size: 80%;
 }
