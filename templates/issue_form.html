@@ -103,27 +103,20 @@
                 <th>Giriş Tarihi</th>
                 <th>Durum</th>
 
-                <tr>
-                  <td>issue_id</td>
-                  <td>issue-tipe</td>
-                  <td>Elektrik Elektronik Fakultesi</td>
-                  <td>Bilgisayar Mühendisliği</td>
-                  <td>D011</td>
-                  <td>Sorun</td>
-                  <td>01.01.2018</td>
-                  <td>Devam Ediyor</td>
-                  <link rel="icon" href="/static/img/liste.png" type="image/gif" sizes="16x16">
-                 </tr>
-                 <tr>
-                   <td>issue_id</td>
-                   <td>issue-tipe</td>
-                   <td>Elektrik Elektronik Fakultesi</td>
-                   <td>Bilgisayar Mühendisliği</td>
-                   <td>D011</td>
-                   <td>Sorun</td>
-                   <td>01.01.2018</td>
-                   <td>Devam Ediyor</td>
+                {% if session.issues%}
+                  {% for issue in session.issues %}
+                  <tr>
+                    <td>{{ issue.type }}</td>
+                    <td>{{ issue.issue_type }}</td>
+                    <td>{{ issue.department_id }}</td>
+                    <td>{{ issue.issue_summary }}</td>
+                    <td>{{ issue.entry_date }}</td>
+                    <td>{{ issue.issue_status }}</td>
                   </tr>
+                  {% endfor %}
+                  {% else %}
+                {% endif %}
+
               </tr>
             </table>
 

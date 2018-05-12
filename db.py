@@ -76,8 +76,9 @@ def add_issue(department,issuer,type,summary,text):
     return issue_id
 
 def get_issues(user_id):
-    user=users.find_one({"_id":user_id})
-    role=user["role"]
+    print(user_id)
+    user = users.find_one({"_id": user_id})
+    role = user["role"]
     if (role=="mesele_girici"):
         issues=issues.find({"issuer_id":user_id})
         return issues

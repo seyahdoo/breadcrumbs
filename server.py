@@ -161,7 +161,9 @@ def show_spesific_issue(issue_id):
 def new_issue_form():
     """Show new issue Form"""
 
-    session.data = [{"name":"Elektronik Fakultesi"},{"name":"Egitim Fakultesi"},{"name":"Insaat Fakultesi"},{"name":"Ogrenci Dekanligi"},{"name":"Enstituler"},{"name":"dfdsfdf"}]
+    session.data  = [{"name":"Elektronik Fakultesi"},{"name":"Egitim Fakultesi"},{"name":"Insaat Fakultesi"},{"name":"Ogrenci Dekanligi"},{"name":"Enstituler"},{"name":"dfdsfdf"}]
+
+    session.issues = get_issues(session["current_user"]["user_id"])
 
     return render_template("issue_form.html")
 
@@ -189,10 +191,6 @@ def new_issue_post():
 def my_issues():
     """Show my attended issue list"""
 
-    # grab issues from database
-
-
-    #add to the session
 
 
     return render_template("issue_list.html")
