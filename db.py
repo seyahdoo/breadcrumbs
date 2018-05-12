@@ -88,6 +88,8 @@ def get_issues(user_id):
     elif(role=="teknisyen"):
         issues=issues.find({"solver_id": user_id})
         return issues
+    elif(role=="admin"):
+        return issues.find_all()
     return []
 
 
