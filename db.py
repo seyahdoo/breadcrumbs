@@ -35,7 +35,8 @@ def add_user(
         "last_name": last_name,
         "worked_department": worked_department,
         "active": active,
-        "role": role
+        "role": role,
+        "issue_list": []
     }
     user_id = users.insert_one(user).inserted_id
 
