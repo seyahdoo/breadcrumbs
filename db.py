@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from pymongo import MongoClient
 import datetime
 
@@ -73,17 +76,17 @@ def add_issue(department,issuer,type,summary,text):
     return issue_id
 
 def get_issues(user_id):
-    user=users.find_one("_id":user_id)
+    user=users.find_one({"_id":user_id})
     role=user["role"]
     if (role=="mesele_girici"):
-        issues=issues.find("issuer_id":user_id)
+        issues=issues.find({"issuer_id":user_id})
         return issues
-    else if(role=="amir" or role=="bolum_baskanı"):
+    elif(role=="amir" or role=="bolum_baskani"):
         department=user["worked_department"]
-        issues=issues.find("department_id":department["_id"])
+        issues=issues.find({"department_id":department["_id"]})
         return issues
-    else if(role=="teknisyen"):
-        issues=issues.find("solver_id": user_id)
+    elif(role=="teknisyen"):
+        issues=issues.find({"solver_id": user_id})
         return issues
     return []
 
