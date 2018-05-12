@@ -64,7 +64,7 @@
                     {% else %}
                     {% endif %}
                 </select>
-                <label>Mesele Tipi</label>
+                <label>Mesaj Türü</label>
                 <select name="IssueType" id="IssueType" class="validate[required] form-control input-lg">
                   <option value="">Seçiniz</option>
                   <option value="Şikayet">Şikayet</option>
@@ -74,7 +74,7 @@
                   <option value="Diğer">Diğer</option>
                 </select>
                 <label for="Issue">Konu</label>
-                <input type="text" id="issue" name="konu" class="form-control" required autofocus>
+                <input type="text" id="issue" class="form-control" required autofocus>
                 <textarea name="mesaj" id="detay" cols="40" class="validate[required] text-input form-control input-lg" rows="6" placeholder="Detay"></textarea>
                 <input type="file" id="issue_attachments" name="img" multiple>
                 <br>
@@ -103,20 +103,26 @@
                 <th>Giriş Tarihi</th>
                 <th>Durum</th>
 
-                {% if session.issues%}
-                  {% for issue in session.issues %}
-                  <tr>
-                    <td>{{ issue.type }}</td>
-                    <td>{{ issue.issue_type }}</td>
-                    <td>{{ issue.department_id }}</td>
-                    <td>{{ issue.issue_summary }}</td>
-                    <td>{{ issue.entry_date }}</td>
-                    <td>{{ issue.issue_status }}</td>
+                <tr>
+                  <td>issue_id</td>
+                  <td>issue-tipe</td>
+                  <td>Elektrik Elektronik Fakultesi</td>
+                  <td>Bilgisayar Mühendisliği</td>
+                  <td>D011</td>
+                  <td>Sorun</td>
+                  <td>01.01.2018</td>
+                  <td>Devam Ediyor</td>
+                 </tr>
+                 <tr>
+                   <td>issue_id</td>
+                   <td>issue-tipe</td>
+                   <td>Elektrik Elektronik Fakultesi</td>
+                   <td>Bilgisayar Mühendisliği</td>
+                   <td>D011</td>
+                   <td>Sorun</td>
+                   <td>01.01.2018</td>
+                   <td>Devam Ediyor</td>
                   </tr>
-                  {% endfor %}
-                  {% else %}
-                {% endif %}
-
               </tr>
             </table>
 
