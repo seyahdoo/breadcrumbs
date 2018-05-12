@@ -265,7 +265,36 @@ h3 {
 #new_issue{
     margin-bottom: 100px;
 }
+/*--------Meselelerim--------------*/
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
 
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 2px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+
+/*-------------Çıkış Yap-------------*/
+.btn-logout{
+    background-color: #FF9800;
+    border-color: #FF9800;
+    font-family: Lato, sans-serif;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+.btn-logout:hover,
+.btn-logout:active,
+.btn-logout:focus {
+    background-color: #FF8100 !important;
+    border-color: #FF8100 !important;
+}
 /* --------- LOGIN/SIGNUP --------- */
 
 .login-signup {
