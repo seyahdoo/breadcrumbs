@@ -53,27 +53,39 @@ def add_dept(name):
 
     return dept_id
 
-def add_issue():
-        issue={
-            "issue_id"
-            "department_id"
-            "issuer_id"
-
+def add_issue(department,issuer,type,summary,text):
+    issue = {
+        "department_id":department,
+        "issuer_id": issuer,
+        "solver_id": None,
+        "issue_type": type,
+        "issue_status": "girildi",
+        "entry_date": datetime.datetime.utcnow(),
+        "finish_date": None,
+        "issue_summary": summary,
+        "detail_text":text,
+        "attachments": [] ,
+        "logs": [],
+        "reports": [],
+        "interruptions": []
         }
-         =
-         = db.Column(db.Integer, db.ForeignKey('departments.department_id'), nullable=False)
-         = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)#solver_id could be added
-         = db.Column(db.Integer, db.ForeignKey('issuetypes.type_id'), nullable=True)
-        state_id = db.Column(db.Integer, db.ForeignKey('issuestates.state_id'), nullable=True)
-        entry_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-        finish_date = db.Column(db.DateTime, nullable=True)
-        summary = db.Column(db.String(140), nullable=True)
-        detail_text = db.Column(db.String(400), nullable=True)
-        attachments = db.relationship("Attachment", backref=db.backref("issue_attachments"))
-        logs= db.relationship("IssueLog",  backref=db.backref("logs"))
-        reports=
+    issue_id = issues.insert_one(issue).inserted_id
+    return issue_id
 
-
+def get_issues(user_id):
+    user=users.find_one("_id":user_id)
+    role=user["role"]
+    if (role=="mesele_girici"):
+        issues=issues.find("issuer_id":user_id)
+        return issues
+    else if(role=="amir" or role=="bolum_baskanı"):
+        department=user["worked_department"]
+        issues=issues.find("department_id":department["_id"])
+        return issues
+    else if(role=="teknisyen"):
+        issues=issues.find("solver_id": user_id)
+        return issues
+    return []
 
 
 def set_parent_dept(child_department,parent_department):
@@ -88,11 +100,20 @@ def set_parent_dept(child_department,parent_department):
 
 def update_issue(issue_id,user_id,status,message,attachment_url):
 
+    #issue = issues.find_one("_id":issue_id)
 
+    #TODO add message vs
 
+    issues.find_one_and_update({"_id": child_department},
+                                    {"$set": {"issue_status": status}})
 
+    return
 
+def assign_solver_to_issue(issue_id,solver_id):
+    user = users.find_one({"_id": solver_id})
+    user["issue_list"].append(issue_id)
 
-
+    users.find_one_and_update({"_id": solver_id},
+                                {"$set": {"issue_list": user["issue_list"]}})
 
     return

@@ -22,24 +22,6 @@ def run_test():
     bolum = add_dept("bilgisayar bölümü")
     set_parent_dept(bolum,fakulte)
 
-    # add some issues entered by different user
-    issue1 = {
-        "department_id": bolum,
-        "issuer_id": ahmet,
-        "solver_id": None,
-        "type": "oneri",
-        "state": "girildi",
-        "entry_date": datetime.datetime.utcnow(),
-        "finish_date": None,
-        "summary": "sorun sistemi lütfen",
-        "detail_text": "sorunlarımızı girebileceğimiz bir sistem yapın lütfen",
-        "attachments": [],
-        "logs": [],
-        "reports": [],
-        "interruptions": []
-    }
-    issue1_id = issues.insert_one(issue1).inserted_id
-
     # assign issues to certain technitians
     issues.find_one_and_update({"_id": issue1_id},
                                 {"$set": {
