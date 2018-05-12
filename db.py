@@ -83,7 +83,7 @@ def get_issues(user_id):
         return issues
     elif(role=="amir" or role=="bolum_baskani"):
         department=user["worked_department"]
-        issues=issues.find({"department_id":department["_id"]})
+        issues=issues.find({"department_id":department})
         return issues
     elif(role=="teknisyen"):
         issues=issues.find({"solver_id": user_id})
