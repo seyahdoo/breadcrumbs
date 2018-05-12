@@ -273,14 +273,14 @@ table {
 }
 
 th{
-   border: 1px solid #dddddd;
-   text-align: center;
+   border: 2px solid #ddddd;
+   text-align: left;
    padding: 2px;
 }
 td{
     border: 1px solid #dddddd;
     text-align: left;
-    padding: 2px;
+    padding: 1px;
 }
 
 tr:nth-child(even) {

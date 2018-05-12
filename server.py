@@ -170,6 +170,8 @@ def new_issue_form():
     return render_template("issue_form.html")
 
 
+
+
 @app.route("/new-issue",  methods=["POST"])
 def new_issue_post():
     """File a new issue"""
@@ -221,9 +223,18 @@ def eleman_ata():
     return redirect("/department_issues")
 
 
+
 @app.route("/error")
 def error():
     raise Exception("Error!")
+
+
+#SayfalariOlusturmakIcinYaptim----omer#
+@app.route("/technician", methods=["GET"])
+def show_technician():
+    """Show signup form."""
+
+    return render_template("technician.html")
 
 
 if __name__ == "__main__":

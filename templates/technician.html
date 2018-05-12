@@ -1,22 +1,22 @@
 {% extends 'base.html' %}
 
-{% block title %}            {% endblock %}
+{% block title %}Teknisyen{% endblock %}
 
 {% block content %}
 
 <div class="container" id="main-section">
     <ul class="nav nav-tabs" role="tablist">
-      <li class="active">
+  <!--     <li class="active">
         <a href="#new_issue" role="tab" data-toggle="tab" >Mesele Oluştur</a>
       </li>
-      <li role="presentation" class="">
+  -->    <li role="presentation" class="active">
         <a href="#issues" role="tab" data-toggle="tab" >Meseleler</a>
       </li>
       <li role="presentation" class="">
         <a href="#settings" role="tab" data-toggle="tab" >Ayarlar</a>
       </li>
-      <li role="presentation" class="">
-        <a href="#logout" role="tab" data-toggle="tab" >Çıkış</a>
+      <li>
+        <a href="/logout">Çıkış</a>
       </li>
 
     </ul>
@@ -25,76 +25,18 @@
   <!-- Tab panes -->
   <div class="tab-content">
 
-      <!-- New-issue-->
-      <div role="tabpanel" id="new_issue" class="tab-pane fade in active"  aria-labelledby="users-tab">
-         <div class="panel panel-default login-signup">
-            <div class="panel-heading">
-              <h1 class="panel-title" align="center">Mesele Oluştur</h1>
-            </div>
-            <!--   /.panel-heading -->
-            <div class="panel-body">
-              <form action="/new-issue" method="post">
-                <!-- https://python-forum.io/Thread-How-do-I-fetch-values-from-db-to-Select-Options-using-Flask?pid=21597-->
-                <!-- yukarıdaki linkten dbdeki verilerle select tasarlama örneği -->
-                <label >Departman</label>
-                <select name="departman_id" class="selectpicker form-control">
-                  {% if session.data %}
-                    {% for o in session.data %}
-                    <option value="{{ o.name }}">{{ o.name }}</option>
-                    {% endfor %}
-                  {% else %}
-                  {% endif %}
-                </select>
 
-                <label >Birim</label>
-                <select name="birim_id" class="selectpicker form-control">
-                  {% if session.data %}
-                    {% for o in session.data %}
-                      <option value="{{ o.name }}">{{ o.name }}</option>
-                    {% endfor %}
-                    {% else %}
-                    {% endif %}
-                </select>
-                <label >Sınıf</label>
-                <select name="birim_id" class="selectpicker form-control">
-                  {% if session.data %}
-                    {% for o in session.data %}
-                      <option value="{{ o.name }}">{{ o.name }}</option>
-                    {% endfor %}
-                    {% else %}
-                    {% endif %}
-                </select>
-                <label>Mesaj Türü</label>
-                <select name="IssueType" id="IssueType" class="validate[required] form-control input-lg">
-                  <option value="">Seçiniz</option>
-                  <option value="Şikayet">Şikayet</option>
-                  <option value="Öneri">Öneri</option>
-                  <option value="Teşekkür">Teşekkür</option>
-                  <option value="BilgiEdinme">Bilgi Edinme</option>
-                  <option value="Diğer">Diğer</option>
-                </select>
-                <label for="Issue">Konu</label>
-                <input type="text" id="issue" class="form-control" required autofocus>
-                <textarea name="mesaj" id="detay" cols="40" class="validate[required] text-input form-control input-lg" rows="6" placeholder="Detay"></textarea>
-                <input type="file" id="issue_attachments" name="img" multiple>
-                <br>
-                <button class="btn btn-lg btn-primary btn-block btn-homepage" type="submit"><span class="fa fa-sign-in" aria-hidden="true"></span> Oluştur</button>
-              </form>
-              <br>
-            </div><!-- /.panel-body-->
-          </div><!-- /.panel -->
-        </div><!-- /.new-issue-->
 
       <!-- issues-->
-      <div role="tabpanel" id="issues" class="tab-pane fade" aria-labelledby="users-tab">
+      <div role="tabpanel" id="issues" class="tab-pane fade in active" aria-labelledby="users-tab">
         <div class="panel panel-default login-signup">
           <div class="panel-heading">
-            <h1 class="panel-title" align="center">Meselelerim</h1>
+            <h1 class="panel-title" align="center">Meseleler</h1>
           </div><!--   /.panel-heading -->
           <div class="panel-body">
             <table>
               <tr>
-                <th>İd</th>
+                <th>Sıra</th>
                 <th>Tipi</th>
                 <th>Departman</th>
                 <th>Bölüm</th>
@@ -103,42 +45,22 @@
                 <th>Giriş Tarihi</th>
                 <th>Durum</th>
 
-                <tr>
-                  <td>issue_id</td>
-                  <td>issue-tipe</td>
-                  <td>Elektrik Elektronik Fakultesi</td>
-                  <td>Bilgisayar Mühendisliği</td>
-                  <td>D011</td>
-                  <td>Sorun</td>
-                  <td>01.01.2018</td>
-                  <td>Devam Ediyor</td>
-                 </tr>
-                 <tr>
-                   <td>issue_id</td>
-                   <td>issue-tipe</td>
-                   <td>Elektrik Elektronik Fakultesi</td>
-                   <td>Bilgisayar Mühendisliği</td>
-                   <td>D011</td>
-                   <td>Sorun</td>
-                   <td>01.01.2018</td>
-                   <td>Devam Ediyor</td>
+
+                  <tr>
+                    <td id="myselect" onchange="change_myselect(this.value)"><button onclick="myFunction()">1</button></td>
+                    <td>Sorun</td>
+                    <td>Elektronik F.</td>
+                    <td>Bilgisayar Müh</td>
+                    <td>D011</td>
+                    <td>Tesisat</td>
+                    <td>1.1.2018</td>
+                    <td>Yeni</td>
+
                   </tr>
+
+
               </tr>
             </table>
-
-          <!--{#
-          <table>
-              {% for t in table %}
-                 <tr>
-                 {% for 5 in 10 %}
-                     <td>{{ i }}</td>
-                 {% endfor %}
-                 </tr>
-              {% endfor %}
-            </table>
-            #}-->
-
-
 
           </div><!-- /.panel-body-->
         </div><!-- /.panel -->
@@ -151,19 +73,7 @@
             <h1 class="panel-title" align="center">Ayarlar</h1>
           </div><!--   /.panel-heading -->
           <div class="panel-body">
-            <h3>Kayıtlı Bilgilerim</h3>
-            <hr>
-            <label for="pwd" >İsim-Soyisim: {{ session.current_user.first_name }}</label><br>
-            <label for="pwd" >E-mail:</label><br><br>
-            <h3>Şifre Değiştir</h3>
-            <hr>
-              <form action="/key_change" method="post">
-                <label for="pwd" >Yeni Şifre</label>
-                <input name="pwd" id="pwd" class="form-control input-sm" data-minlength="6" data-maxlength="12" placeholder="Şifre"required="" type="password">
-                <label for="pwd2">Şifre Tekrar</label>
-                <input name="pwd2" id="pwd2" class="form-control input-sm" data-minlength="6" data-maxlength="12" data-match="#pwd" data-match-error="Şifreler eşleşmiyor" placeholder="Şifre Tekrar" required="" type="password">
-                <button class="btn btn-lg btn-primary btn-block btn-homepage" type="submit"><span class="fa fa-sign-in" aria-hidden="true"></span> Şifreyi Değiştir</button>
-              </form>
+
           </div> <!-- /.panel-body-->
         </div><!-- /.panel -->
     </div><!-- /.settings-->
