@@ -62,7 +62,7 @@ def add_issue(department,issuer,type,summary,text):
         "issuer_id": issuer,
         "solver_id": None,
         "issue_type": type,
-        "issue_state":None,
+        "issue_status": "girildi",
         "entry_date": datetime.datetime.utcnow(),
         "finish_date": None,
         "issue_summary": summary,
@@ -103,6 +103,12 @@ def set_parent_dept(child_department,parent_department):
 
 def update_issue(issue_id,user_id,status,message,attachment_url):
 
+    #issue = issues.find_one("_id":issue_id)
+
+    #TODO add message vs
+
+    issues.find_one_and_update({"_id": child_department},
+                                    {"$set": {"issue_status": status}})
 
     return
 
@@ -112,3 +118,5 @@ def assign_solver_to_issue(issue_id,solver_id):
 
     users.find_one_and_update({"_id": solver_id},
                                 {"$set": {"issue_list": user["issue_list"]}})
+
+    return
