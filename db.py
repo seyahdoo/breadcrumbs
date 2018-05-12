@@ -35,8 +35,7 @@ def add_user(
         "last_name": last_name,
         "worked_department": worked_department,
         "active": active,
-        "role": role,
-        "issue_list": []
+        "role": role
     }
     user_id = users.insert_one(user).inserted_id
 
@@ -72,6 +71,22 @@ def add_issue(department,issuer,type,summary,text):
         }
     issue_id = issues.insert_one(issue).inserted_id
     return issue_id
+
+def get_issues(user_id):
+    user=users.find_one("_id":user_id)
+    role=user["role"]
+    department=user["worked_department"]
+    if (role=="mesele_girici"):
+        issues=issues.find("issuer_id":user_id)
+        return issues
+    else if(role=="amir" or role=="bolum_baskanı"):
+        issues=issues.find("department_id":department)
+        return issues
+    else if(role=="teknisyen"):
+        issues=issues.find("solver_id": user_id)
+        return issues
+    return []
+
 
 def set_parent_dept(child_department,parent_department):
 
