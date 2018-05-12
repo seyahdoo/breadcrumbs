@@ -3,6 +3,7 @@
 
 from pymongo import MongoClient
 import datetime
+from bson.objectid import ObjectId
 
 DATABASE_NAME = "issue-tracker"
 
@@ -76,19 +77,18 @@ def add_issue(department,issuer,type,summary,text):
     return issue_id
 
 def get_issues(user_id):
-    print(user_id)
-    user = users.find_one({"_id": user_id})
+    user = users.find_one({"_id": ObjectId(user_id)})
     role = user["role"]
     if (role=="mesele_girici"):
-        issues=issues.find({"issuer_id":user_id})
-        return issues
+        issue_list=issues.find({"issuer_id":user_id})
+        return issue_list
     elif(role=="amir" or role=="bolum_baskani"):
         department=user["worked_department"]
-        issues=issues.find({"department_id":department})
-        return issues
+        issue_list=issues.find({"department_id":department})
+        return issue_list
     elif(role=="teknisyen"):
-        issues=issues.find({"solver_id": user_id})
-        return issues
+        issue_list=issues.find({"solver_id": user_id})
+        return issue_list
     elif(role=="admin"):
         return issues.find_all()
     return []

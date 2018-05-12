@@ -70,6 +70,7 @@ def login():
         "role": current_user["role"]
     }
 
+
     flash("Welcome {}. You have successfully logged in.".format(current_user["first_name"]), "success")
 
     return redirect("/")
@@ -163,6 +164,7 @@ def new_issue_form():
 
     session.data  = [{"name":"Elektronik Fakultesi"},{"name":"Egitim Fakultesi"},{"name":"Insaat Fakultesi"},{"name":"Ogrenci Dekanligi"},{"name":"Enstituler"},{"name":"dfdsfdf"}]
 
+    print(session["current_user"]["user_id"])
     session.issues = get_issues(session["current_user"]["user_id"])
 
     return render_template("issue_form.html")
