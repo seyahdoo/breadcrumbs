@@ -53,6 +53,29 @@ def add_dept(name):
 
     return dept_id
 
+def add_issue():
+        issue={
+            "issue_id"
+            "department_id"
+            "issuer_id"
+
+        }
+         =
+         = db.Column(db.Integer, db.ForeignKey('departments.department_id'), nullable=False)
+         = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)#solver_id could be added
+         = db.Column(db.Integer, db.ForeignKey('issuetypes.type_id'), nullable=True)
+        state_id = db.Column(db.Integer, db.ForeignKey('issuestates.state_id'), nullable=True)
+        entry_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+        finish_date = db.Column(db.DateTime, nullable=True)
+        summary = db.Column(db.String(140), nullable=True)
+        detail_text = db.Column(db.String(400), nullable=True)
+        attachments = db.relationship("Attachment", backref=db.backref("issue_attachments"))
+        logs= db.relationship("IssueLog",  backref=db.backref("logs"))
+        reports=
+
+
+
+
 def set_parent_dept(child_department,parent_department):
 
     departments.find_one_and_update({"_id": parent_department},
@@ -63,15 +86,13 @@ def set_parent_dept(child_department,parent_department):
 
     return True
 
+def update_issue(issue_id,user_id,status,message,attachment_url):
 
 
-if __name__ == "__main__":
 
-    post = {"author": "mikey",
-            "text": "My first blog post!",
-            "tags": ["mongodb", "python", "pymongo"],
-            "date": datetime.datetime.utcnow()}
 
-    post_id = posts.insert_one(post).inserted_id
 
-    print(post_id)
+
+
+
+    return

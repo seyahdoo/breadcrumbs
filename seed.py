@@ -1,9 +1,8 @@
-!/usr/bin/env python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from database import *
+from db import *
 import datetime
-import logic
 
 
 def run_test():
@@ -11,17 +10,17 @@ def run_test():
     client.drop_database(DATABASE_NAME)
 
     # add some users
-    ahmet = logic.add_user("ahmet","tester","testerahmet@seyahdoo.com","1234","05062609999")
-    mahmut = logic.add_user("mahmut","tester","testermahmut@seyahdoo.com","1234","05062601111")
-    recai = logic.add_user("recai","deli","testerrecai@seyahdoo.com","4321","05062604798")
-    halil = logic.add_user("halil","tester","testerhalil@seyahdoo.com","1234","05062602222",None,True,"technitian")
+    ahmet = add_user("ahmet","tester","testerahmet@seyahdoo.com","1234","05062609999")
+    mahmut = add_user("mahmut","tester","testermahmut@seyahdoo.com","1234","05062601111")
+    recai = add_user("recai","deli","testerrecai@seyahdoo.com","4321","05062604798")
+    halil = add_user("halil","tester","testerhalil@seyahdoo.com","1234","05062602222",None,True,"technitian")
 
     # add some departments
-    dekanlik = logic.add_dept("dekanlık")
-    fakulte = logic.add_dept("fakülte")
-    logic.set_parent_dept(fakulte,dekanlik)
-    bolum = logic.add_dept("bilgisayar bölümü")
-    logic.set_parent_dept(bolum,fakulte)
+    dekanlik = add_dept("dekanlık")
+    fakulte = add_dept("fakülte")
+    set_parent_dept(fakulte,dekanlik)
+    bolum = add_dept("bilgisayar bölümü")
+    set_parent_dept(bolum,fakulte)
 
     # add some issues entered by different user
     issue1 = {
