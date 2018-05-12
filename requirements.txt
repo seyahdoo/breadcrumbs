@@ -17,4 +17,3 @@ six
 validators
 Werkzeug
 pymongo
-bson
