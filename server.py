@@ -194,7 +194,9 @@ def my_issues():
 
     # grab issues from database
 
+
     #add to the session
+
 
     return render_template("issue_list.html")
 
@@ -215,6 +217,8 @@ def eleman_ata():
     user_id = request.args.get('user_id')
 
     # do assigning
+    
+
 
     flash("You have successfully assigned technician to work.", "success")
     return redirect("/department_issues")

@@ -101,10 +101,11 @@ def set_parent_dept(child_department,parent_department):
 def update_issue(issue_id,user_id,status,message,attachment_url):
 
 
-
-
-
-
-
-
     return
+
+def assign_solver_to_issue(issue_id,solver_id):
+    user = users.find_one({"_id": solver_id})
+    user["issue_list"].append(issue_id)
+
+    users.find_one_and_update({"_id": solver_id},
+                                {"$set": {"issue_list": user["issue_list"]}})
