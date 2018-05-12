@@ -161,7 +161,7 @@ def show_spesific_issue(issue_id):
 def new_issue_form():
     """Show new issue Form"""
 
-    session.data = [{"name":"asda"},{"name":"qwe"},{"name":"zxc"}]
+    session.data = [{"name":"Elektronik Fakultesi"},{"name":"Egitim Fakultesi"},{"name":"Insaat Fakultesi"},{"name":"Ogrenci Dekanligi"},{"name":"Enstituler"},{"name":""}]
 
     return render_template("issue_form.html")
 
