@@ -4,7 +4,7 @@ from jinja2 import StrictUndefined
 
 from flask import Flask, render_template, redirect, request, flash, session
 
-from database import *
+from db import *
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get("FLASK_SECRET_KEY", "abcdef")
@@ -38,7 +38,7 @@ def index():
     # if admin
     # go to admin control panel
 
-    return redirect("/new_issue")
+    return redirect("/new-issue")
 
 
 @app.route("/login", methods=["GET"])
@@ -157,35 +157,32 @@ def show_spesific_issue(issue_id):
     return redirect("/")
 
 
-@app.route("/new_issue",  methods=["GET"])
+@app.route("/new-issue",  methods=["GET"])
 def new_issue_form():
     """Show new issue Form"""
 
-    session.data = [{"name":"Elektronik Fakultesi"},{"name":"Egitim Fakultesi"},{"name":"Insaat Fakultesi"},{"name":"Ogrenci Dekanligi"},{"name":"Enstituler"},{"name":""}]
+    session.data = [{"name":"Elektronik Fakultesi"},{"name":"Egitim Fakultesi"},{"name":"Insaat Fakultesi"},{"name":"Ogrenci Dekanligi"},{"name":"Enstituler"},{"name":"dfdsfdf"}]
 
     return render_template("issue_form.html")
 
 
-@app.route("/new_issue",  methods=["POST"])
+@app.route("/new-issue",  methods=["POST"])
 def new_issue_post():
     """File a new issue"""
 
     #Create new issue
-    """
-    new_issue = Issue(
-                    email=signup_email,
-                    password=signup_password,
-                    first_name=first_name,
-                    last_name=last_name)
-    db.session.add(new_user)
-    db.session.commit()
-    """
+
+    add_issue(request.form.get("birim_id"),
+            session["current_user"]["user_id"],
+            request.form.get("IssueType"),
+            request.form.get("mesaj"),
+            request.form.get("konu"))
 
     #populate issue
 
     flash("You have successfully filed an issue.", "success")
     # TODO redirect to issue id
-    return render_template("issue_form.html")
+    return redirect("/")
 
 
 @app.route("/my_issues",  methods=["GET"])
@@ -217,7 +214,7 @@ def eleman_ata():
     user_id = request.args.get('user_id')
 
     # do assigning
-    
+
 
 
     flash("You have successfully assigned technician to work.", "success")
