@@ -53,28 +53,24 @@ def add_dept(name):
 
     return dept_id
 
-def add_issue():
-        issue={
-            "issue_id"
-            "department_id"
-            "issuer_id"
-
+def add_issue(department,issuer,type,summary,text):
+    issue = {
+        "department_id":department,
+        "issuer_id": issuer,
+        "solver_id": None,
+        "issue_type": type,
+        "issue_state":None,
+        "entry_date": datetime.datetime.utcnow(),
+        "finish_date": None,
+        "issue_summary": summary,
+        "detail_text":text,
+        "attachments": [] ,
+        "logs": [],
+        "reports": [],
+        "interruptions": []
         }
-         =
-         = db.Column(db.Integer, db.ForeignKey('departments.department_id'), nullable=False)
-         = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)#solver_id could be added
-         = db.Column(db.Integer, db.ForeignKey('issuetypes.type_id'), nullable=True)
-        state_id = db.Column(db.Integer, db.ForeignKey('issuestates.state_id'), nullable=True)
-        entry_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-        finish_date = db.Column(db.DateTime, nullable=True)
-        summary = db.Column(db.String(140), nullable=True)
-        detail_text = db.Column(db.String(400), nullable=True)
-        attachments = db.relationship("Attachment", backref=db.backref("issue_attachments"))
-        logs= db.relationship("IssueLog",  backref=db.backref("logs"))
-        reports=
-
-
-
+    issue_id = issues.insert_one(issue).inserted_id
+    return issue_id
 
 def set_parent_dept(child_department,parent_department):
 
