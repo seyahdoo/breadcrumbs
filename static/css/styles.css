@@ -272,7 +272,12 @@ table {
     width: 100%;
 }
 
-td, th {
+th{
+   border: 1px solid #dddddd;
+   text-align: center;
+   padding: 2px;
+}
+td{
     border: 1px solid #dddddd;
     text-align: left;
     padding: 2px;
@@ -280,7 +285,7 @@ td, th {
 
 tr:nth-child(even) {
     background-color: #dddddd;
-
+}
 /*-------------Çıkış Yap-------------*/
 .btn-logout{
     background-color: #FF9800;
