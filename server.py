@@ -4,6 +4,8 @@ from jinja2 import StrictUndefined
 
 from flask import Flask, render_template, redirect, request, flash, session
 
+from bson.objectid import ObjectId
+
 from db import *
 
 app = Flask(__name__)
@@ -126,36 +128,25 @@ def signup():
     return redirect("/login")
 
 
-@app.route("/issue/<int:issue_id>",  methods=["GET"])
+@app.route("/issue/<issue_id>/",  methods=["GET"])
 def show_spesific_issue(issue_id):
     """Show spesific issue"""
 
     # grab spesific issue data from db
     try:
-        a = 1
-        #iss = db.session.query(Issue).filter(Issue.issue_id == issue_id).one()
+        iss =issues.find_one({"_id":issue_id})
 
         # TODO if user have access
 
         # add to session
-
-        #session["issue"] = {
-        #    "summary": iss.summary,
-        #    "detail_text": iss.detail_text,
-        #    "entry_date": iss.entry_date,
-        #    "finish_date": iss.finish_date,
-        #    "issuer_id": iss.issuer_id,
-        #    "department_id": iss.department_id,
-        #    "type_id": iss.type_id
-        #}
-
-        return render_template("show_issue.html")
+        flash("found spesific issue.", "success")
+        return render_template("issue_detail.html",issue=iss)
     except Exception as e:
         flash("Could not found spesific issue.", "danger")
-        return redirect("/")
+        #return redirect("/")
 
-
-    return redirect("/")
+    return render_template("issue_detail.html")
+    #return redirect("/")
 
 
 @app.route("/new-issue",  methods=["GET"])
@@ -240,8 +231,13 @@ def show_technician():
 @app.route("/chief", methods=["GET"])
 def show_chief():
     """Show signup form."""
+    try:
+        issues = get_issues(session["current_user"]["user_id"])
+    except Exception as e:
+        return redirect("/")
 
-    return render_template("chief.html")
+
+    return render_template("chief.html",issues=issues)
 
 @app.route("/manager", methods=["GET"])
 def show_manager():

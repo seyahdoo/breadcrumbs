@@ -25,8 +25,6 @@
   <!-- Tab panes -->
   <div class="tab-content">
 
-
-
       <!-- issues-->
       <div role="tabpanel" id="issues" class="tab-pane fade in active" aria-labelledby="users-tab">
         <div class="panel panel-default login-signup">
@@ -49,45 +47,23 @@
 
               <tfoot>
                   <tr>
-                    <td id="myselect" onchange="change_myselect(this.value)" href="#issue" role="tab" data-toggle="tab"><button onclick="myFunction()" class="btn btn-info">1</button></td>
-                    <td>Sorun</td>
-                    <td>Bilgisayar Müh</td>
-                    <td>D011</td>
-                    <td>Tesisat</td>
-                    <td>1.1.2018</td>
-                    <td>Yeni</td>
+                    {% if issues%}
+                      {% for issue in issues %}
+                      <tr>
+                        <td id="myselect" onclick="window.location.href='/issue/{{issue._id}}/';" role="tab" data-toggle="tab"><button class="btn btn-info">1</button></td>
+                        <td>{{ issue.issue_type }}</td>
+                        <td>{{ issue.department_id }}</td>
+                        <td>D011</td>
+                        <td>{{ issue.issue_summary }}</td>
+                        <td>{{ issue.entry_date }}</td>
+                        <td>{{ issue.issue_status }}</td>
+                      </tr>
+                      {% endfor %}
+                      {% else %}
+                    {% endif %}
+
+
                   </tr>
-
-                  <tr>
-                    <td id="myselect" onchange="change_myselect(this.value)" href="#issue" role="tab" data-toggle="tab"><button onclick="myFunction()" class="btn btn-info">1</button></td>
-                    <td>Sorun</td>
-                    <td>Bilgisayar Müh</td>
-                    <td>D011</td>
-                    <td>Tesisat</td>
-                    <td>1.1.2018</td>
-                    <td>Yeni</td>
-                    </tr>
-
-                  <tr>
-                    <td id="myselect" onchange="change_myselect(this.value)" href="#issue" role="tab" data-toggle="tab"><button onclick="myFunction()" class="btn btn-info">1</button></td>
-                    <td>Sorun</td>
-                    <td>Bilgisayar Müh</td>
-                    <td>D011</td>
-                    <td>Tesisat</td>
-                    <td>1.1.2018</td>
-                    <td>Yeni</td>
-                  </tr>
-
-                  <tr>
-                    <td id="myselect" onchange="change_myselect(this.value)" href="#issue" role="tab" data-toggle="tab"><button onclick="myFunction()" class="btn btn-info">1</button></td>
-                    <td>Sorun</td>
-                    <td>Bilgisayar Müh</td>
-                    <td>D011</td>
-                    <td>Tesisat</td>
-                    <td>1.1.2018</td>
-                    <td>Yeni</td>
-                  </tr>
-
 
               </tfoot>
             </table>
@@ -134,46 +110,7 @@
       </div><!-- /.panel -->
   </div><!-- /.settings-->
 
-  <!-- issue-->
-  <div role="tabpanel" id="issue" class="tab-pane fade" aria-labelledby="users-tab">
-    <div class="panel panel-default login-signup">
-      <div class="panel-heading">
-        <h1 class="panel-title" align="center">Mesele konusu burada yazacak</h1>
-      </div><!--   /.panel-heading -->
-      <div class="panel-body">
-        <label>Mesele_id: </label><br>
-        <label>Melele Tipi: </label><br>
-        <label>Bölüm: </label><br>
-        <label>Sınıf: </label><br>
-        <label>Yetkili: </label>
-        <h4>Detay</h4>
-        <hr>
-        <p>
-          Bu program kullanıcıdan bir karakter kümesi girmesi ister. Daha sonra onu ekrana tersten yazdırır.
-          mystring dizisi için tanımlanmış olan 120 sayısı en fazla 120 karakter girilebileceği anlamına gelir...
-          int boyut fonksiyonu dizinin boyutunu kaç karakterli olduğunu bulur. Size ile tanımlanmış olan integer ise bu
-          görevi yapar. Yani fonksiyonun eleman sayısını belirtir.
-        </p><br>
 
-        <!-- Eklenen bütün video ve fotoğrafları döndürecek bir for döngüsü -->
-
-        <a href="/static/img/issueId_file1.jpg">
-          <img src="/static/img/issueId_file1.jpg" class="img-rounded" alt="Ek dosya" style="width:100px;height:100px;border:0;margin-left: 10px; margin-bottom: 10px;">
-        </a>
-        <a href="/static/img/issueId_file2.jpg">
-          <img src="/static/img/issueId_file2.jpg" class="img-rounded" alt="Ek dosya" style="width:100px;height:100px;border:0;margin-left: 10px; margin-bottom: 10px;">
-        </a>
-
-
-        <form>
-          <button href="#assign_technician" role="tab" data-toggle="tab" class="btn btn-primary" type="submit"  style="margin-left:250px;" value="Start" >Eleman Ata</button>
-          <button href="#explanation" role="tab" data-toggle="tab" class="btn btn-danger" type="submit" value="NotStart">Çözülemez</button>
-          <button href="#explanation" role="tab" data-toggle="tab" class="btn btn-success" type="submit" value="Solve">Bitir</button>
-        </form>
-
-      </div> <!-- /.panel-body-->
-    </div><!-- /.panel -->
-  </div><!-- /.issue-->
 
   <!-- explanation-->
   <div role="tabpanel" id="explanation" class="tab-pane fade" aria-labelledby="users-tab">
@@ -194,7 +131,7 @@
     </div><!-- /.panel -->
   </div><!-- /.explanation-->
 
-     <!-- assign_technician-->
+    <!-- assign_technician-->
    <div role="tabpanel" id="assign_technician" class="tab-pane fade" aria-labelledby="users-tab">
        <div class="panel panel-default login-signup">
          <div class="panel-heading">
@@ -227,42 +164,6 @@
                    <td>39 Saat'te</td>
                    <td id="myselect" onchange="change_myselect(this.value)" href="#issue" role="tab" data-toggle="tab"><button onclick="myFunction()" class="btn btn-success">Aktif</button></td>
                  </tr>
-
-                 <tr>
-                   <td>Ali</td>
-                   <td>Cengiz</td>
-                   <td>İnşaat Ustası</td>
-                   <td>23 saatte</td>
-                   <td>36 Tane</td>
-                   <td>25 Tane</td>
-                   <td>39 Saat'te</td>
-                   <td id="myselect" onchange="change_myselect(this.value)" href="#issue" role="tab" data-toggle="tab"><button onclick="myFunction()" class="btn btn-block">Pasif</button></td>
-                 </tr>
-
-                 <tr>
-                   <td>Ali</td>
-                   <td>Cengiz</td>
-                   <td>İnşaat Ustası</td>
-                   <td>23 saatte</td>
-                   <td>36 Tane</td>
-                   <td>25 Tane</td>
-                   <td>39 Saat'te</td>
-                   <td id="myselect" onchange="change_myselect(this.value)" href="#issue" role="tab" data-toggle="tab"><button onclick="myFunction()" class="btn btn-success">Aktif</button></td>
-                 </tr>
-
-                 <tr>
-                   <td>Ali</td>
-                   <td>Cengiz</td>
-                   <td>İnşaat Ustası</td>
-                   <td>23 saatte</td>
-                   <td>36 Tane</td>
-                   <td>25 Tane</td>
-                   <td>39 Saat'te</td>
-                   <td id="myselect" onchange="change_myselect(this.value)" href="#issue" role="tab" data-toggle="tab"><button onclick="myFunction()" class="btn btn-success">Aktif</button></td>
-                 </tr>
-
-
-
 
              </tfoot>
            </table>

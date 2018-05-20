@@ -80,6 +80,7 @@ def get_issues(user_id):
     user = users.find_one({"_id": ObjectId(user_id)})
     role = user["role"]
     if (role=="mesele_girici"):
+        print(role);
         issue_list=issues.find({"issuer_id":user_id})
         return issue_list
     elif(role=="amir" or role=="bolum_baskani"):

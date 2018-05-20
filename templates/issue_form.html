@@ -100,7 +100,6 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th>İd</th>
                   <th>Tipi</th>
                   <th>Departman</th>
                   <th>Bölüm</th>
@@ -114,7 +113,6 @@
                 {% if session.issues%}
                   {% for issue in session.issues %}
                   <tr>
-                    <td></td>
                     <td>{{ issue.issue_type }}</td>
                     <td>{{ issue.department_id }}</td>
                     <td></td>
