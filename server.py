@@ -134,13 +134,13 @@ def show_spesific_issue(issue_id):
 
     # grab spesific issue data from db
     try:
-        iss =issues.find_one({"_id":ObjectId(issue_id)})
+        issue = issues.find_one({"_id":ObjectId(issue_id)})
 
         # TODO if user have access
 
         # add to session
         flash("found spesific issue.", "success")
-        return render_template("issue_detail.html",issue=iss)
+        return render_template("issue_detail.html",issue=issue)
     except Exception as e:
         flash("Could not found spesific issue.", "danger")
         #return redirect("/")
