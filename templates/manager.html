@@ -15,6 +15,9 @@
       <li role="presentation" class="">
         <a href="#settings" role="tab" data-toggle="tab" >Ayarlar</a>
       </li>
+      <li role="presentation" class="">
+        <a href="#report" role="tab" data-toggle="tab" >Raporlama</a>
+      </li>
       <li>
         <a href="/logout">Çıkış</a>
       </li>
@@ -27,44 +30,79 @@
 
 
 
-      <!-- issues-->
-      <div role="tabpanel" id="issues" class="tab-pane fade in active" aria-labelledby="users-tab">
-        <div class="panel panel-default login-signup">
-          <div class="panel-heading">
-            <h1 class="panel-title" align="center">Meseleler</h1>
-          </div><!--   /.panel-heading -->
-          <div class="panel-body">
-            <table>
+    <!-- issues-->
+    <div role="tabpanel" id="issues" class="tab-pane fade in active" aria-labelledby="users-tab">
+      <div class="panel panel-default login-signup">
+        <div class="panel-heading">
+          <h1 class="panel-title" align="center">Meseleler</h1>
+        </div><!--   /.panel-heading -->
+        <div class="panel-body">
+          <table id="tableID" class="table">
+            <thead>
               <tr>
                 <th>Sıra</th>
                 <th>Tipi</th>
-                <th>Departman</th>
                 <th>Bölüm</th>
                 <th>Sınıf</th>
                 <th>Konu</th>
                 <th>Giriş Tarihi</th>
+                <th>İlgili</th>
                 <th>Durum</th>
+              </tr>
+            </thead>
 
+            <tbody>
+                <tr>
+                  <td>Sorun</td>
+                  <td>Bilgisayar Müh</td>
+                  <td>D011</td>
+                  <td>Tesisat</td>
+                  <td>1.1.2018</td>
+                  <td>Mehmet</td>
+                  <td>Yeni</td>
+                  <td>Yeni</td>
+                </tr>
 
-                  <tr>
-                    <td id="myselect" onchange="change_myselect(this.value)"><button onclick="myFunction()">1</button></td>
-                    <td>Sorun</td>
-                    <td>Elektronik F.</td>
-                    <td>Bilgisayar Müh</td>
-                    <td>D011</td>
-                    <td>Tesisat</td>
-                    <td>1.1.2018</td>
-                    <td>Yeni</td>
-
+                <tr>
+                  <td>Sorun</td>
+                  <td>Bilgisayar Müh</td>
+                  <td>D011</td>
+                  <td>Tesisat</td>
+                  <td>1.1.2018</td>
+                  <td>Ahmet</td>
+                  <td>Yeni</td>
+                  <td>Yeni</td>
                   </tr>
 
+                <tr>
+                  <td>Sorun</td>
+                  <td>Bilgisayar Müh</td>
+                  <td>D011</td>
+                  <td>Tesisat</td>
+                  <td>1.1.2018</td>
+                  <td>Yunus</td>
+                  <td>Yeni</td>
+                  <td>Yeni</td>
+                </tr>
 
-              </tr>
-            </table>
+                <tr>
+                  <td>Sorun</td>
+                  <td>Bilgisayar Müh</td>
+                  <td>D011</td>
+                  <td>Tesisat</td>
+                  <td>1.1.2018</td>
+                  <td>Kadir</td>
+                  <td>Yeni</td>
+                  <td>Yeni</td>
+                </tr>
 
-          </div><!-- /.panel-body-->
-        </div><!-- /.panel -->
-    </div><!-- /.issues-->
+
+            </tbody>
+          </table>
+
+        </div><!-- /.panel-body-->
+      </div><!-- /.panel -->
+  </div><!-- /.issues-->
 
       <!-- settings-->
       <div role="tabpanel" id="settings" class="tab-pane fade" aria-labelledby="users-tab">
@@ -78,7 +116,76 @@
         </div><!-- /.panel -->
     </div><!-- /.settings-->
 
+    <!-- Report-->
+    <div role="tabpanel" id="report" class="tab-pane fade" aria-labelledby="users-tab">
+      <div class="panel panel-default login-signup">
+        <div class="panel-heading">
+          <h1 class="panel-title" align="center">Rapor Oluştur</h1>
+        </div><!--   /.panel-heading -->
+        <div class="panel-body">
+          <label>Mesele Tarih Aralığı :</label>
+          <label style="margin-left: 5px;" >Bölüm: </label>
+          <select name="departman_id" class="">
+            <option value="">Yetkili Birimi</option>
+            <option value="">Varsa Alt birim-1</option>
+            <option value="">Varsa Alt birim-2</option>
+            <option value="">Varsa Alt birim-3</option>
+          </select>
+          <label style="margin-left: 5px;" >Tipi: </label>
+          <select name="issue_type" class="">
+            <option value="">Hepsi</option>
+            <option value="">Sorun</option>
+            <option value="">Teşekkür</option>
+            <option value="">Dilek</option>
+          </select>
+          <label style="margin-left: 5px;" >Durumu: </label>
+          <select name="issue_durumu" class="">
+            <option value="">Hepsi</option>
+            <option value="">Yeni</option>
+            <option value="">Sektede</option>
+            <option value="">Devam</option>
+            <option value="">Son</option>
+          </select>
+          <br>
+          <button href="#report" role="tab" data-toggle="tab" type="button" class="btn btn-info" style="margin-left:650px; margin-top:10px;"  >Listele</button>
 
+        </div> <!-- /.panel-body-->
+      </div><!-- /.panel -->
+  </div><!-- /.Report-->
+
+    <!-- issue-->
+    <div role="tabpanel" id="issue" class="tab-pane fade" aria-labelledby="users-tab">
+      <div class="panel panel-default login-signup">
+        <div class="panel-heading">
+          <h1 class="panel-title" align="center">Mesele konusu burada yazacak</h1>
+        </div><!--   /.panel-heading -->
+        <div class="panel-body">
+          <label>Mesele_id: </label><br>
+          <label>Melele Tipi: </label><br>
+          <label>Bölüm: </label><br>
+          <label>Sınıf: </label><br>
+          <label>İlgili: </label>
+          <h4>Detay</h4>
+          <hr>
+          <p>
+            Bu program kullanıcıdan bir karakter kümesi girmesi ister. Daha sonra onu ekrana tersten yazdırır.
+            mystring dizisi için tanımlanmış olan 120 sayısı en fazla 120 karakter girilebileceği anlamına gelir...
+            int boyut fonksiyonu dizinin boyutunu kaç karakterli olduğunu bulur. Size ile tanımlanmış olan integer ise bu
+            görevi yapar. Yani fonksiyonun eleman sayısını belirtir.
+          </p><br>
+
+          <!-- Eklenen bütün video ve fotoğrafları döndürecek bir for döngüsü -->
+
+          <a href="/static/img/issueId_file1.jpg">
+            <img src="/static/img/issueId_file1.jpg" class="img-rounded" alt="Ek dosya" style="width:100px;height:100px;border:0;margin-left: 10px; margin-bottom: 10px;">
+          </a>
+          <a href="/static/img/issueId_file2.jpg">
+            <img src="/static/img/issueId_file2.jpg" class="img-rounded" alt="Ek dosya" style="width:100px;height:100px;border:0;margin-left: 10px; margin-bottom: 10px;">
+          </a>
+
+        </div> <!-- /.panel-body-->
+      </div><!-- /.panel -->
+    </div><!-- /.issue-->
 
 
    </div><!-- /.Tab panes -->
@@ -88,4 +195,11 @@
 
 {% endblock %}
 
-{% block javascript %} {% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+$(document).ready( function () {
+    $('#tableID').DataTable();
+} );
+
+</script>
+ {% endblock %}
