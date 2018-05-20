@@ -134,7 +134,7 @@ def show_spesific_issue(issue_id):
 
     # grab spesific issue data from db
     try:
-        iss =issues.find_one({"_id":issue_id})
+        iss =issues.find_one({"_id":ObjectId(issue_id)})
 
         # TODO if user have access
 
