@@ -234,7 +234,27 @@ def error():
 def show_technician():
     """Show signup form."""
 
+
     return render_template("technician.html")
+
+@app.route("/chief", methods=["GET"])
+def show_chief():
+    """Show signup form."""
+
+    return render_template("chief.html")
+
+@app.route("/manager", methods=["GET"])
+def show_manager():
+    """Show signup form."""
+
+    return render_template("manager.html")
+
+
+@app.route("/admin", methods=["GET"])
+def show_admin():
+    """Show signup form."""
+
+    return render_template("admin.html")
 
 
 if __name__ == "__main__":

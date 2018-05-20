@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}Birim Başkanı{% endblock %}
+
+{% block content %}
+
+<div class="container" id="main-section">
+    <ul class="nav nav-tabs" role="tablist">
+  <!--     <li class="active">
+        <a href="#new_issue" role="tab" data-toggle="tab" >Mesele Oluştur</a>
+      </li>
+  -->    <li role="presentation" class="active">
+        <a href="#issues" role="tab" data-toggle="tab" >Meseleler</a>
+      </li>
+      <li role="presentation" class="">
+        <a href="#settings" role="tab" data-toggle="tab" >Ayarlar</a>
+      </li>
+      <li>
+        <a href="/logout">Çıkış</a>
+      </li>
+
+    </ul>
+    <br>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+
+
+
+      <!-- issues-->
+      <div role="tabpanel" id="issues" class="tab-pane fade in active" aria-labelledby="users-tab">
+        <div class="panel panel-default login-signup">
+          <div class="panel-heading">
+            <h1 class="panel-title" align="center">Meseleler</h1>
+          </div><!--   /.panel-heading -->
+          <div class="panel-body">
+            <table>
+              <tr>
+                <th>Sıra</th>
+                <th>Tipi</th>
+                <th>Departman</th>
+                <th>Bölüm</th>
+                <th>Sınıf</th>
+                <th>Konu</th>
+                <th>Giriş Tarihi</th>
+                <th>Durum</th>
+
+
+                  <tr>
+                    <td id="myselect" onchange="change_myselect(this.value)"><button onclick="myFunction()">1</button></td>
+                    <td>Sorun</td>
+                    <td>Elektronik F.</td>
+                    <td>Bilgisayar Müh</td>
+                    <td>D011</td>
+                    <td>Tesisat</td>
+                    <td>1.1.2018</td>
+                    <td>Yeni</td>
+
+                  </tr>
+
+
+              </tr>
+            </table>
+
+          </div><!-- /.panel-body-->
+        </div><!-- /.panel -->
+    </div><!-- /.issues-->
+
+      <!-- settings-->
+      <div role="tabpanel" id="settings" class="tab-pane fade" aria-labelledby="users-tab">
+        <div class="panel panel-default login-signup">
+          <div class="panel-heading">
+            <h1 class="panel-title" align="center">Ayarlar</h1>
+          </div><!--   /.panel-heading -->
+          <div class="panel-body">
+
+          </div> <!-- /.panel-body-->
+        </div><!-- /.panel -->
+    </div><!-- /.settings-->
+
+
+
+
+   </div><!-- /.Tab panes -->
+</div><!-- /.container -->
+
+
+
+{% endblock %}
+
+{% block javascript %} {% endblock %}

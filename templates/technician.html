@@ -34,61 +34,217 @@
             <h1 class="panel-title" align="center">Meseleler</h1>
           </div><!--   /.panel-heading -->
           <div class="panel-body">
-            <table>
-              <tr>
-                <th>Sıra</th>
-                <th>Tipi</th>
-                <th>Departman</th>
-                <th>Bölüm</th>
-                <th>Sınıf</th>
-                <th>Konu</th>
-                <th>Giriş Tarihi</th>
-                <th>Durum</th>
+            <table id="tableID" class="table">
+              <thead>
+                <tr>
+                  <th>Sıra</th>
+                  <th>Tipi</th>
+                  <th>Bölüm</th>
+                  <th>Sınıf</th>
+                  <th>Konu</th>
+                  <th>Giriş Tarihi</th>
+                  <th>Durum</th>
+                </tr>
+              </thead>
 
-
+              <tfoot>
                   <tr>
-                    <td id="myselect" onchange="change_myselect(this.value)"><button onclick="myFunction()">1</button></td>
+                    <td id="myselect" onchange="change_myselect(this.value)" href="#issue" role="tab" data-toggle="tab"><button onclick="myFunction()" class="btn btn-info">1</button></td>
                     <td>Sorun</td>
-                    <td>Elektronik F.</td>
                     <td>Bilgisayar Müh</td>
                     <td>D011</td>
                     <td>Tesisat</td>
                     <td>1.1.2018</td>
                     <td>Yeni</td>
+                  </tr>
 
+                  <tr>
+                    <td id="myselect" onchange="change_myselect(this.value)" href="#issue" role="tab" data-toggle="tab"><button onclick="myFunction()" class="btn btn-info">1</button></td>
+                    <td>Sorun</td>
+                    <td>Bilgisayar Müh</td>
+                    <td>D011</td>
+                    <td>Tesisat</td>
+                    <td>1.1.2018</td>
+                    <td>Yeni</td>
+                    </tr>
+
+                  <tr>
+                    <td id="myselect" onchange="change_myselect(this.value)" href="#issue" role="tab" data-toggle="tab"><button onclick="myFunction()" class="btn btn-info">1</button></td>
+                    <td>Sorun</td>
+                    <td>Bilgisayar Müh</td>
+                    <td>D011</td>
+                    <td>Tesisat</td>
+                    <td>1.1.2018</td>
+                    <td>Yeni</td>
+                  </tr>
+
+                  <tr>
+                    <td id="myselect" onchange="change_myselect(this.value)" href="#issue" role="tab" data-toggle="tab"><button onclick="myFunction()" class="btn btn-info">1</button></td>
+                    <td>Sorun</td>
+                    <td>Bilgisayar Müh</td>
+                    <td>D011</td>
+                    <td>Tesisat</td>
+                    <td>1.1.2018</td>
+                    <td>Yeni</td>
                   </tr>
 
 
-              </tr>
+              </tfoot>
             </table>
 
           </div><!-- /.panel-body-->
         </div><!-- /.panel -->
     </div><!-- /.issues-->
 
-      <!-- settings-->
-      <div role="tabpanel" id="settings" class="tab-pane fade" aria-labelledby="users-tab">
+    <!-- settings-->
+    <div role="tabpanel" id="settings" class="tab-pane fade" aria-labelledby="users-tab">
+      <div class="panel panel-default login-signup">
+        <div class="panel-heading">
+          <h1 class="panel-title" align="center">Ayarlar</h1>
+        </div><!--   /.panel-heading -->
+        <div class="panel-body">
+          <h3>Bilgilerim</h3>
+          <hr>
+          <label for="pwd" >İsim-Soyisim: {{ session.current_user.first_name }}</label><br>
+          <label for="pwd" >E-mail:</label><br><br>
+
+          <h3>İzine Ayrılma</h3>
+          <hr>
+          <label for="pwd" >Yetkili Birim:</label><br>
+        <form action="/permission" method="post">
+          <label>Çıkış Tarihi:</label>
+          <input type="date" id="izin" name="çıkış_tarihi" required autofocus>
+          <label>Dönüş Tarihi:</label>
+          <input type="date" id="izin" name="giriş_tarihi" required autofocus>
+          <button>İstek Gönder</button>
+          <br>
+        </form>
+
+
+          <h3>Şifre Değiştir</h3>
+          <hr>
+            <form action="/pwd_change" method="post">
+              <label for="pwd" >Yeni Şifre</label>
+              <input name="pwd" id="pwd" class="form-control input-sm" data-minlength="6" data-maxlength="12" placeholder="Şifre"required="" type="password">
+              <label for="pwd2">Şifre Tekrar</label>
+              <input name="pwd2" id="pwd2" class="form-control input-sm" data-minlength="6" data-maxlength="12" data-match="#pwd" data-match-error="Şifreler eşleşmiyor" placeholder="Şifre Tekrar" required="" type="password">
+              <button class="btn btn-lg btn-primary btn-block btn-homepage" type="submit"><span class="fa fa-sign-in" aria-hidden="true"></span> Şifreyi Değiştir</button>
+            </form>
+        </div> <!-- /.panel-body-->
+      </div><!-- /.panel -->
+  </div><!-- /.settings-->
+
+  <!-- issue-->
+  <div role="tabpanel" id="issue" class="tab-pane fade" aria-labelledby="users-tab">
+    <div class="panel panel-default login-signup">
+      <div class="panel-heading">
+        <h1 class="panel-title" align="center">Mesele konusu burada yazacak</h1>
+      </div><!--   /.panel-heading -->
+      <div class="panel-body">
+        <label>Mesele_id: </label><br>
+        <label>Melele Tipi: </label><br>
+        <label>Bölüm: </label><br>
+        <label>Sınıf: </label>
+        <h4>Detay</h4>
+        <hr>
+        <p>
+          Bu program kullanıcıdan bir karakter kümesi girmesi ister. Daha sonra onu ekrana tersten yazdırır.
+          mystring dizisi için tanımlanmış olan 120 sayısı en fazla 120 karakter girilebileceği anlamına gelir...
+          int boyut fonksiyonu dizinin boyutunu kaç karakterli olduğunu bulur. Size ile tanımlanmış olan integer ise bu
+          görevi yapar. Yani fonksiyonun eleman sayısını belirtir.
+        </p><br>
+
+        <!-- Eklenen bütün video ve fotoğrafları döndürecek bir for döngüsü -->
+
+        <a href="/static/img/issueId_file1.jpg">
+          <img src="/static/img/issueId_file1.jpg" class="img-rounded" alt="Ek dosya" style="width:100px;height:100px;border:0;margin-left: 10px; margin-bottom: 10px;">
+        </a>
+        <a href="/static/img/issueId_file2.jpg">
+          <img src="/static/img/issueId_file2.jpg" class="img-rounded" alt="Ek dosya" style="width:100px;height:100px;border:0;margin-left: 10px; margin-bottom: 10px;">
+        </a>
+
+
+        <form>
+          <button id="btnLogin" class="btn btn-primary" type="submit"  style="margin-left:200px;" value="Start" >Çözmeye Başla</button>
+          <button href="#Standstill" role="tab" data-toggle="tab" class="btn btn-warning" type="submit" value="Standstill">Sekte Oluştur</button>
+          <button href="#explanation" role="tab" data-toggle="tab" class="btn btn-danger" type="submit" value="NotStart">Çözülemez</button>
+          <button href="#explanation" role="tab" data-toggle="tab" class="btn btn-success" type="submit" value="Solve">Bitir</button>
+        </form>
+
+      </div> <!-- /.panel-body-->
+    </div><!-- /.panel -->
+  </div><!-- /.issue-->
+
+  <!-- explanation-->
+  <div role="tabpanel" id="explanation" class="tab-pane fade" aria-labelledby="users-tab">
+    <div class="panel panel-default login-signup">
+      <div class="panel-heading">
+        <h1 class="panel-title" align="center">Açıklama Oluştur</h1>
+      </div><!--   /.panel-heading -->
+      <div class="panel-body">
+        <label>Mesele_id: </label><br>
+        <textarea name="mesaj" id="detay" cols="40" class="validate[required] text-input form-control input-lg" rows="6" placeholder="Açıklama"></textarea>
+        <input type="file" id="issue_attachments" name="img" multiple><br>
+        <button class="explantaion-button" type="submit" id="btnLogin" value="explanation">Gönder</button>
+
+
+      </div> <!-- /.panel-body-->
+    </div><!-- /.panel -->
+  </div><!-- /.explanation-->
+
+  <!-- Standstill-->
+  <div role="tabpanel" id="Standstill" class="tab-pane fade"  aria-labelledby="users-tab">
         <div class="panel panel-default login-signup">
-          <div class="panel-heading">
-            <h1 class="panel-title" align="center">Ayarlar</h1>
-          </div><!--   /.panel-heading -->
-          <div class="panel-body">
+           <div class="panel-heading">
+             <h1 class="panel-title" align="center">Sekte Oluştur</h1>
+           </div>
+           <!--   /.panel-heading -->
+           <div class="panel-body">
+             <form action="/new-explanation" method="post">
+               <!-- https://python-forum.io/Thread-How-do-I-fetch-values-from-db-to-Select-Options-using-Flask?pid=21597-->
+               <!-- yukarıdaki linkten dbdeki verilerle select tasarlama örneği -->
 
-          </div> <!-- /.panel-body-->
-        </div><!-- /.panel -->
-    </div><!-- /.settings-->
+               <label >Departman</label>
+               <select name="departman_id" class="selectpicker form-control">
 
-      <!-- logout-->
-      <div role="tabpanel" id="logout" class="tab-pane fade" aria-labelledby="users-tab">
-        <div class="panel panel-default login-signup">
-          <div class="panel-heading">
-            <h1 class="panel-title" align="center"><a href="/logout" color="#FF9800" ><font size="3" color="orange">Çıkış Yap</font></a></h1>
-          </div><!--   /.panel-heading -->
-          <div class="panel-body">
+                   <option value=""></option>
 
-          </div><!-- /.panel-body-->
-        </div><!-- /.panel -->
-    </div><!-- /.logout-->
+               </select>
+
+               <label >Birim</label>
+               <select name="birim_id" class="selectpicker form-control">
+
+                     <option value=""></option>
+
+               </select>
+               <label >Sınıf</label>
+               <select name="class_id" class="selectpicker form-control">
+
+                     <option value=""></option>
+
+               </select>
+
+               <label>Mesele Tipi</label>
+               <select name="IssueType" id="IssueType" class="selectpicker form-control">
+                 <option value="">Seçiniz</option>
+                 <option value="Şikayet">Şikayet</option>
+                 <option value="Öneri">Öneri</option>
+                 <option value="Teşekkür">Teşekkür</option>
+                 <option value="BilgiEdinme">Bilgi Edinme</option>
+                 <option value="Diğer">Diğer</option>
+               </select>
+               <label for="Issue">Konu</label>
+               <input type="text" id="issue" name="konu" class="form-control" required autofocus>
+               <textarea name="mesaj" id="detay" cols="40" class="validate[required] text-input form-control input-lg" rows="6" placeholder="Detay"></textarea>
+               <input type="file" id="issue_attachments" name="img" multiple>
+               <br>
+               <button class="btn btn-lg btn-primary btn-block btn-homepage" type="submit"><span class="fa fa-sign-in" aria-hidden="true"></span> Oluştur</button>
+             </form>
+             <br>
+           </div><!-- /.panel-body-->
+         </div><!-- /.panel -->
+       </div><!-- /.Standstill-->
+
 
 
    </div><!-- /.Tab panes -->
@@ -98,4 +254,24 @@
 
 {% endblock %}
 
-{% block javascript %}       {% endblock %}
+{% block javascript %}
+
+    <script type="text/javascript">
+      jQuery(document).ready(function(){
+        // jQuery ready
+        // click
+          jQuery("#btnLogin").click(function(){
+          $("#btnLogin").attr("value","Lütfen bekleyiniz...");
+          $("#btnLogin").attr("disabled","disabled");
+        return false;
+        });
+    });//end ready
+    </script>
+
+    <script>
+      $(document).ready( function () {
+        $('#tableID').DataTable();
+      } );
+    </script>
+
+{% endblock %}

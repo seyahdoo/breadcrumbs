@@ -1,0 +1,300 @@
+{% extends 'base.html' %}
+
+{% block title %}Şef{% endblock %}
+
+{% block content %}
+
+<div class="container" id="main-section">
+    <ul class="nav nav-tabs" role="tablist">
+  <!--     <li class="active">
+        <a href="#new_issue" role="tab" data-toggle="tab" >Mesele Oluştur</a>
+      </li>
+  -->    <li role="presentation" class="active">
+        <a href="#issues" role="tab" data-toggle="tab" >Meseleler</a>
+      </li>
+      <li role="presentation" class="">
+        <a href="#settings" role="tab" data-toggle="tab" >Ayarlar</a>
+      </li>
+      <li>
+        <a href="/logout">Çıkış</a>
+      </li>
+
+    </ul>
+    <br>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+
+
+
+      <!-- issues-->
+      <div role="tabpanel" id="issues" class="tab-pane fade in active" aria-labelledby="users-tab">
+        <div class="panel panel-default login-signup">
+          <div class="panel-heading">
+            <h1 class="panel-title" align="center">Meseleler</h1>
+          </div><!--   /.panel-heading -->
+          <div class="panel-body">
+            <table id="tableID" class="table">
+              <thead>
+                <tr>
+                  <th>Sıra</th>
+                  <th>Tipi</th>
+                  <th>Bölüm</th>
+                  <th>Sınıf</th>
+                  <th>Konu</th>
+                  <th>Giriş Tarihi</th>
+                  <th>Durum</th>
+                </tr>
+              </thead>
+
+              <tfoot>
+                  <tr>
+                    <td id="myselect" onchange="change_myselect(this.value)" href="#issue" role="tab" data-toggle="tab"><button onclick="myFunction()" class="btn btn-info">1</button></td>
+                    <td>Sorun</td>
+                    <td>Bilgisayar Müh</td>
+                    <td>D011</td>
+                    <td>Tesisat</td>
+                    <td>1.1.2018</td>
+                    <td>Yeni</td>
+                  </tr>
+
+                  <tr>
+                    <td id="myselect" onchange="change_myselect(this.value)" href="#issue" role="tab" data-toggle="tab"><button onclick="myFunction()" class="btn btn-info">1</button></td>
+                    <td>Sorun</td>
+                    <td>Bilgisayar Müh</td>
+                    <td>D011</td>
+                    <td>Tesisat</td>
+                    <td>1.1.2018</td>
+                    <td>Yeni</td>
+                    </tr>
+
+                  <tr>
+                    <td id="myselect" onchange="change_myselect(this.value)" href="#issue" role="tab" data-toggle="tab"><button onclick="myFunction()" class="btn btn-info">1</button></td>
+                    <td>Sorun</td>
+                    <td>Bilgisayar Müh</td>
+                    <td>D011</td>
+                    <td>Tesisat</td>
+                    <td>1.1.2018</td>
+                    <td>Yeni</td>
+                  </tr>
+
+                  <tr>
+                    <td id="myselect" onchange="change_myselect(this.value)" href="#issue" role="tab" data-toggle="tab"><button onclick="myFunction()" class="btn btn-info">1</button></td>
+                    <td>Sorun</td>
+                    <td>Bilgisayar Müh</td>
+                    <td>D011</td>
+                    <td>Tesisat</td>
+                    <td>1.1.2018</td>
+                    <td>Yeni</td>
+                  </tr>
+
+
+              </tfoot>
+            </table>
+
+          </div><!-- /.panel-body-->
+        </div><!-- /.panel -->
+    </div><!-- /.issues-->
+
+    <!-- settings-->
+    <div role="tabpanel" id="settings" class="tab-pane fade" aria-labelledby="users-tab">
+      <div class="panel panel-default login-signup">
+        <div class="panel-heading">
+          <h1 class="panel-title" align="center">Ayarlar</h1>
+        </div><!--   /.panel-heading -->
+        <div class="panel-body">
+          <h3>Bilgilerim</h3>
+          <hr>
+          <label for="pwd" >İsim-Soyisim: {{ session.current_user.first_name }}</label><br>
+          <label for="pwd" >E-mail:</label><br><br>
+
+          <h3>İzine Ayrılma</h3>
+          <hr>
+          <label for="pwd" >Yetkili Birim:</label><br>
+        <form action="/permission" method="post">
+          <label>Çıkış Tarihi:</label>
+          <input type="date" id="izin" name="çıkış_tarihi" required autofocus>
+          <label>Dönüş Tarihi:</label>
+          <input type="date" id="izin" name="giriş_tarihi" required autofocus>
+          <button>İstek Gönder</button>
+          <br>
+        </form>
+
+
+          <h3>Şifre Değiştir</h3>
+          <hr>
+            <form action="/pwd_change" method="post">
+              <label for="pwd" >Yeni Şifre</label>
+              <input name="pwd" id="pwd" class="form-control input-sm" data-minlength="6" data-maxlength="12" placeholder="Şifre"required="" type="password">
+              <label for="pwd2">Şifre Tekrar</label>
+              <input name="pwd2" id="pwd2" class="form-control input-sm" data-minlength="6" data-maxlength="12" data-match="#pwd" data-match-error="Şifreler eşleşmiyor" placeholder="Şifre Tekrar" required="" type="password">
+              <button class="btn btn-lg btn-primary btn-block btn-homepage" type="submit"><span class="fa fa-sign-in" aria-hidden="true"></span> Şifreyi Değiştir</button>
+            </form>
+        </div> <!-- /.panel-body-->
+      </div><!-- /.panel -->
+  </div><!-- /.settings-->
+
+  <!-- issue-->
+  <div role="tabpanel" id="issue" class="tab-pane fade" aria-labelledby="users-tab">
+    <div class="panel panel-default login-signup">
+      <div class="panel-heading">
+        <h1 class="panel-title" align="center">Mesele konusu burada yazacak</h1>
+      </div><!--   /.panel-heading -->
+      <div class="panel-body">
+        <label>Mesele_id: </label><br>
+        <label>Melele Tipi: </label><br>
+        <label>Bölüm: </label><br>
+        <label>Sınıf: </label><br>
+        <label>Yetkili: </label>
+        <h4>Detay</h4>
+        <hr>
+        <p>
+          Bu program kullanıcıdan bir karakter kümesi girmesi ister. Daha sonra onu ekrana tersten yazdırır.
+          mystring dizisi için tanımlanmış olan 120 sayısı en fazla 120 karakter girilebileceği anlamına gelir...
+          int boyut fonksiyonu dizinin boyutunu kaç karakterli olduğunu bulur. Size ile tanımlanmış olan integer ise bu
+          görevi yapar. Yani fonksiyonun eleman sayısını belirtir.
+        </p><br>
+
+        <!-- Eklenen bütün video ve fotoğrafları döndürecek bir for döngüsü -->
+
+        <a href="/static/img/issueId_file1.jpg">
+          <img src="/static/img/issueId_file1.jpg" class="img-rounded" alt="Ek dosya" style="width:100px;height:100px;border:0;margin-left: 10px; margin-bottom: 10px;">
+        </a>
+        <a href="/static/img/issueId_file2.jpg">
+          <img src="/static/img/issueId_file2.jpg" class="img-rounded" alt="Ek dosya" style="width:100px;height:100px;border:0;margin-left: 10px; margin-bottom: 10px;">
+        </a>
+
+
+        <form>
+          <button href="#assign_technician" role="tab" data-toggle="tab" class="btn btn-primary" type="submit"  style="margin-left:250px;" value="Start" >Eleman Ata</button>
+          <button href="#explanation" role="tab" data-toggle="tab" class="btn btn-danger" type="submit" value="NotStart">Çözülemez</button>
+          <button href="#explanation" role="tab" data-toggle="tab" class="btn btn-success" type="submit" value="Solve">Bitir</button>
+        </form>
+
+      </div> <!-- /.panel-body-->
+    </div><!-- /.panel -->
+  </div><!-- /.issue-->
+
+  <!-- explanation-->
+  <div role="tabpanel" id="explanation" class="tab-pane fade" aria-labelledby="users-tab">
+    <div class="panel panel-default login-signup">
+      <div class="panel-heading">
+        <h1 class="panel-title" align="center">Açıklama Oluştur</h1>
+      </div><!--   /.panel-heading -->
+      <div class="panel-body">
+        <label>Mesele_id: </label><br>
+        <label>Mesele sahibi: </label><br>
+        <label>Mesele sahibinin maili: </label><br>
+        <textarea name="mesaj" id="detay" cols="40" class="validate[required] text-input form-control input-lg" rows="6" placeholder="Açıklama"></textarea>
+        <input type="file" id="issue_attachments" name="img" multiple><br>
+        <button class="explantaion-button" type="submit" id="btnLogin" value="explanation">Gönder</button>
+
+
+      </div> <!-- /.panel-body-->
+    </div><!-- /.panel -->
+  </div><!-- /.explanation-->
+
+     <!-- assign_technician-->
+   <div role="tabpanel" id="assign_technician" class="tab-pane fade" aria-labelledby="users-tab">
+       <div class="panel panel-default login-signup">
+         <div class="panel-heading">
+           <h1 class="panel-title" align="center">Eleman Ata</h1>
+         </div><!--   /.panel-heading -->
+         <div class="panel-body">
+           <table id="example" class="table table-striped table-bordered" style="width:100%">
+             <thead>
+               <tr>
+                 <th>Adı</th>
+                 <th>Soyadı</th>
+                 <th>Yetkinlik</th>
+                 <th>Farketme Süresi</th>
+                 <th>Aldığı Mesele</th><!-- Verilen mesele sayısı-->
+                 <th>Çözdüğü Mesele</th><!-- Çözdüğü mesele sayısı-->
+                 <th>Ortalama Zaman</th><!-- Bir Meseleye Ayırdığı ortalama süre-->
+                 <th>Durum</th><!--İzindemi değil mi?-->
+               </tr>
+             </thead>
+
+             <tfoot>
+
+                 <tr>
+                   <td>Ali</td>
+                   <td>Cengiz</td>
+                   <td>İnşaat Ustası</td>
+                   <td>23 saatte</td>
+                   <td>36 Tane</td>
+                   <td>25 Tane</td>
+                   <td>39 Saat'te</td>
+                   <td id="myselect" onchange="change_myselect(this.value)" href="#issue" role="tab" data-toggle="tab"><button onclick="myFunction()" class="btn btn-success">Aktif</button></td>
+                 </tr>
+
+                 <tr>
+                   <td>Ali</td>
+                   <td>Cengiz</td>
+                   <td>İnşaat Ustası</td>
+                   <td>23 saatte</td>
+                   <td>36 Tane</td>
+                   <td>25 Tane</td>
+                   <td>39 Saat'te</td>
+                   <td id="myselect" onchange="change_myselect(this.value)" href="#issue" role="tab" data-toggle="tab"><button onclick="myFunction()" class="btn btn-block">Pasif</button></td>
+                 </tr>
+
+                 <tr>
+                   <td>Ali</td>
+                   <td>Cengiz</td>
+                   <td>İnşaat Ustası</td>
+                   <td>23 saatte</td>
+                   <td>36 Tane</td>
+                   <td>25 Tane</td>
+                   <td>39 Saat'te</td>
+                   <td id="myselect" onchange="change_myselect(this.value)" href="#issue" role="tab" data-toggle="tab"><button onclick="myFunction()" class="btn btn-success">Aktif</button></td>
+                 </tr>
+
+                 <tr>
+                   <td>Ali</td>
+                   <td>Cengiz</td>
+                   <td>İnşaat Ustası</td>
+                   <td>23 saatte</td>
+                   <td>36 Tane</td>
+                   <td>25 Tane</td>
+                   <td>39 Saat'te</td>
+                   <td id="myselect" onchange="change_myselect(this.value)" href="#issue" role="tab" data-toggle="tab"><button onclick="myFunction()" class="btn btn-success">Aktif</button></td>
+                 </tr>
+
+
+
+
+             </tfoot>
+           </table>
+
+
+         </div> <!-- /.panel-body-->
+       </div><!-- /.panel -->
+     </div><!-- /.assign_technician-->
+
+
+
+
+   </div> <!-- /.Tab panes -->
+</div><!-- /.container -->
+
+
+
+{% endblock %}
+
+{% block javascript %}
+
+    <script type="text/javascript">
+      jQuery(document).ready(function(){
+        // jQuery ready
+        // click
+          jQuery("#btnLogin").click(function(){
+          $("#btnLogin").attr("value","Lütfen bekleyiniz...");
+          $("#btnLogin").attr("disabled","disabled");
+        return false;
+        });
+    });//end ready
+    </script>
+
+
+{% endblock %}

@@ -6,6 +6,9 @@
 
 
 <a href="/technician">Teknisyen</a>
+<a href="/chief">Şef</a>
+<a href="/manager">Yönetici</a>
+<a href="/admin">Admin</a>
 <div class="container" id="main-section">
     <ul class="nav nav-tabs" role="tablist">
       <li class="active">
@@ -58,7 +61,7 @@
                     {% endif %}
                 </select>
                 <label >Sınıf</label>
-                <select name="birim_id" class="selectpicker form-control">
+                <select name="class_id" class="selectpicker form-control">
                   {% if session.data %}
                     {% for o in session.data %}
                       <option value="{{ o.name }}">{{ o.name }}</option>
@@ -67,7 +70,7 @@
                     {% endif %}
                 </select>
                 <label>Mesele Tipi</label>
-                <select name="IssueType" id="IssueType" class="validate[required] form-control input-lg">
+                <select name="IssueType" id="IssueType" class="selectpicker form-control">
                   <option value="">Seçiniz</option>
                   <option value="Şikayet">Şikayet</option>
                   <option value="Öneri">Öneri</option>
@@ -94,17 +97,20 @@
             <h1 class="panel-title" align="center">Meselelerim</h1>
           </div><!--   /.panel-heading -->
           <div class="panel-body">
-            <table>
-              <tr>
-                <th>İd</th>
-                <th>Tipi</th>
-                <th>Departman</th>
-                <th>Bölüm</th>
-                <th>Sınıf</th>
-                <th>Konu</th>
-                <th>Giriş Tarihi</th>
-                <th>Durum</th>
-
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>İd</th>
+                  <th>Tipi</th>
+                  <th>Departman</th>
+                  <th>Bölüm</th>
+                  <th>Sınıf</th>
+                  <th>Konu</th>
+                  <th>Giriş Tarihi</th>
+                  <th>Durum</th>
+                </tr>
+              </thead>
+              <tfoot>
                 {% if session.issues%}
                   {% for issue in session.issues %}
                   <tr>
@@ -121,7 +127,7 @@
                   {% else %}
                 {% endif %}
 
-              </tr>
+              <tfoot>
             </table>
 
           <!--{#
