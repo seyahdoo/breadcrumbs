@@ -8,7 +8,7 @@
 <div role="tabpanel" id="issue" class="tab-pane" aria-labelledby="users-tab">
   <div class="panel panel-default login-signup">
     <div class="panel-heading">
-      <h1 class="panel-title" align="center">Mesele konusu burada yazacak</h1>
+      <h1 class="panel-title" align="center">{{issue.issue_summary}}</h1>
     </div><!--   /.panel-heading -->
     <div class="panel-body">
       <label>Mesele_id: {{issue._id}}</label><br>
@@ -16,7 +16,7 @@
       <label>Bölüm: {{issue.department_id}}</label><br>
       <label>Sınıf: </label><br>
       <label>Yetkili: {{issue.solver_id}}</label><br>
-      <label>Durum: {{issue.state}}</label><br>
+      <label>Durum: {{issue.issue_status}}</label><br>
 
       <hr>
       <h4>{{issue.issue_summary}}</h4>
@@ -35,13 +35,40 @@
 
 
       <form>
-        <button href="#assign_technician" role="tab" data-toggle="tab" class="btn btn-primary" type="submit"  style="margin-left:250px;" value="Start" >Eleman Ata</button>
-        <button href="#explanation" role="tab" data-toggle="tab" class="btn btn-danger" type="submit" value="NotStart">Çözülemez</button>
-        <button href="#explanation" role="tab" data-toggle="tab" class="btn btn-success" type="submit" value="Solve">Bitir</button>
+
+        <a href="/show_assign_technician?issue_id={{issue._id}}" class="btn btn-primary" style="margin-left:250px;" data-toggle="tab">Eleman Ata</a>
+        <a class="btn btn-danger" data-toggle="tab" onclick="DoPostUnsolvable()">Çözülemez</a>
+        <a class="btn btn-success" data-toggle="tab" onclick="DoPostFinished()">Çözüldü</a>
+
       </form>
 
     </div> <!-- /.panel-body-->
   </div><!-- /.panel -->
 </div><!-- /.issue-->
+
+{% endblock %}
+
+{% block javascript %}
+
+  <script language="javascript">
+
+   function DoPostUnsolvable(){
+      $.post("/update_issue", { "issue_id": "{{issue._id}}", "status": "cozulemez" } )
+        .done(function() {
+          toastr.success('Çözülemez işaretlendi')
+          setTimeout("location.reload();", 1500);
+        });
+   }
+
+   function DoPostFinished(){
+      $.post("/update_issue", { "issue_id": "{{issue._id}}", "status": "cozuldu" } )
+        .done(function() {
+          toastr.success('Çözüldü işaretlendi')
+          setTimeout("location.reload();", 1500);
+        });
+   }
+
+</script>
+
 
 {% endblock %}

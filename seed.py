@@ -25,32 +25,16 @@ def run_test():
     amir = add_user("amir","bro","amir@seyahdoo.com","1234","05062602222",fakulte,True,"amir")
     teknisyen = add_user("teknisyen","bro","teknisyen@seyahdoo.com","1234","05062602222",fakulte,True,"teknisyen")
 
+    issue1= add_issue(fakulte,ahmet,"sikayet","Cam sıkıntısı","Cam kırık sanki :/")
+    issue2= add_issue(fakulte,ahmet,"sikayet","Yer ıslak","d108 önü ıslak sanırım")
+    issue3= add_issue(fakulte,mahmut,"itiraz","Notlar aşırı güzel","Dahada güzel olabilir")
+    issue4= add_issue(fakulte,ahmet,"oneri","Notları düzeltelim","Kesinlikle güzel bi çözüm yolu bulabiliriz")
 
-    issue1= add_issue(fakulte,ahmet,"sikayet","hello","sorun konu")
-    issue2= add_issue(fakulte,ahmet,"sikayet","heyy","sorun konu")
-    issue3= add_issue(fakulte,mahmut,"itiraz","hiii","sorun konu sudur")
-    issue4= add_issue(fakulte,ahmet,"oneri","hello","sorun konusu bu")
+    assign_solver_to_issue(issue1, halil)
 
-
-
-
-
-
-    # assign issues to certain technitians
-    issues.find_one_and_update({"_id": issue1},
-                                {"$set": {
-                                "solver_id": halil,
-                                "state": "cozum_basladi"
-                                }})
-
-
-    # make them solve it
-    issues.find_one_and_update({"_id": issue2},
-                                {"$set": {
-                                "state": "cozuldu"
-                                }})
-
-    # fin
+    update_issue(issue1, halil, "cozum_basladi")
+    update_issue(issue1, halil, "cozuldu")
+    update_issue(issue3, amir, "cozulemez")
 
 
 if __name__ == "__main__":

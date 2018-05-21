@@ -5,6 +5,8 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, redirect, request, flash, session
 
 from bson.objectid import ObjectId
+from JSONEncoder import JSONEncoder
+import util
 
 from db import *
 
@@ -22,17 +24,18 @@ def index():
 
     # look for user, if not user
     try:
-        session["current_user"]["user_id"]
+        if not session["current_user"]:
+            return redirect("/login")
     except Exception as e:
         # go to login
         return redirect("/login")
 
 
-    # if technician
-    # go to my_issues
+    if session["current_user"]["role"] == "teknisyen":
+        return redirect("/chief")
 
-    # if shef
-    # go to department_issues
+    if session["current_user"]["role"] == "amir":
+        return redirect("/chief")
 
     # if excecutive
     # go to reports
@@ -65,15 +68,12 @@ def login():
 
     print(current_user)
 
-    # Use a nested dictionary for session["current_user"] to store more than just user_id
-    session["current_user"] = {
-        "first_name": current_user["first_name"],
-        "user_id": str(current_user["_id"]),
-        "role": current_user["role"]
-    }
+    current_user = util.object_stringify(current_user)
+    print(current_user)
 
+    session["current_user"] = current_user
 
-    flash("Welcome {}. You have successfully logged in.".format(current_user["first_name"]), "success")
+    flash("Welcome {}. You have successfully logged in.".format(session["current_user"]["first_name"]), "success")
 
     return redirect("/")
 
@@ -108,18 +108,11 @@ def signup():
     current_user = users.find_one({"email": signup_email})
 
     if current_user is None:
-        new_user = {"email": signup_email,
-                    "password": signup_password,
-                    "first_name": first_name,
-                    "last_name": last_name,
-                    "role": "Issue_Enterer"}
-        new_user_id = users.insert_one(new_user).inserted_id
+        new_user_id = add_user(first_name, last_name, signup_email, signup_password, "05062602222", None, True, "mesele_girici")
+        user = users.find_one({"_id": new_user_id})
 
         # Add same info to session for new user as per /login route
-        session["current_user"] = {
-            "first_name": new_user["first_name"],
-            "user_id": str(new_user_id)
-        }
+        session["current_user"] = util.object_stringify(user)
 
         flash("You have succesfully signed up for an account, and you are now logged in.", "success")
         return redirect("/")
@@ -129,8 +122,8 @@ def signup():
 
 
 @app.route("/issue/<issue_id>/",  methods=["GET"])
-def show_spesific_issue(issue_id):
-    """Show spesific issue"""
+def show_specific_issue(issue_id):
+    """Show specific issue"""
 
     # grab spesific issue data from db
     try:
@@ -139,14 +132,13 @@ def show_spesific_issue(issue_id):
         # TODO if user have access
 
         # add to session
-        flash("found spesific issue.", "success")
-        return render_template("issue_detail.html",issue=issue)
+        flash("found specific issue.", "success")
+        return render_template("issue_detail.html", issue=issue)
     except Exception as e:
-        flash("Could not found spesific issue.", "danger")
-        #return redirect("/")
+        flash("Could not found specific issue.", "danger")
 
     return render_template("issue_detail.html")
-    #return redirect("/")
+    #return redirect("/my_issues");
 
 
 @app.route("/new-issue",  methods=["GET"])
@@ -155,12 +147,10 @@ def new_issue_form():
 
     session.data  = [{"name":"Elektronik Fakultesi"},{"name":"Egitim Fakultesi"},{"name":"Insaat Fakultesi"},{"name":"Ogrenci Dekanligi"},{"name":"Enstituler"},{"name":"dfdsfdf"}]
 
-    print(session["current_user"]["user_id"])
-    session.issues = get_issues(session["current_user"]["user_id"])
+    print(session["current_user"])
+    session.issues = get_issues(session["current_user"]["_id"])
 
     return render_template("issue_form.html")
-
-
 
 
 @app.route("/new-issue",  methods=["POST"])
@@ -169,11 +159,12 @@ def new_issue_post():
 
     #Create new issue
 
-    add_issue(request.form.get("birim_id"),
-            session["current_user"]["user_id"],
-            request.form.get("IssueType"),
-            request.form.get("mesaj"),
-            request.form.get("konu"))
+    add_issue(
+        request.form.get("birim_id"),
+        session["current_user"]["user_id"],
+        request.form.get("IssueType"),
+        request.form.get("mesaj"),
+        request.form.get("konu"))
 
     #populate issue
 
@@ -198,21 +189,49 @@ def department_issues():
     return render_template("issue_list.html")
 
 
-# eleman_ata?issue_id=1203&user_id=2201
-@app.route("/eleman_ata",  methods=["GET"])
-def eleman_ata():
+# show_assign_technician?issue_id=1203&user_id=2201
+@app.route("/show_assign_technician",  methods=["GET"])
+def show_eleman_ata():
+    """Show my attended issue list"""
+
+    issue_id = request.args.get('issue_id')
+
+    # get workers of your department
+    technicians = users.find({
+        "worked_department": ObjectId(session["current_user"]["worked_department"]),
+        "role": "teknisyen"
+    })
+
+    return render_template("eleman_ata.html", technicians=technicians, issue_id=issue_id)
+
+
+# assign_technician?issue_id=1203&user_id=2201
+@app.route("/assign_technician",  methods=["GET"])
+def post_eleman_ata():
     """Show my attended issue list"""
 
     issue_id = request.args.get('issue_id')
     user_id = request.args.get('user_id')
 
-    # do assigning
-
-
+    assign_solver_to_issue(ObjectId(issue_id),ObjectId(user_id))
 
     flash("You have successfully assigned technician to work.", "success")
-    return redirect("/department_issues")
+    return redirect("/issue/{}".format(issue_id))
 
+
+# assign_technician?issue_id=1203&message=bla
+@app.route("/update_issue",  methods=["POST"])
+def post_update_issue():
+    """Show my attended issue list"""
+
+    issue_id = request.form.get("issue_id")
+    user_id = session["current_user"]["_id"]
+    status = request.form.get("status")
+
+    update_issue(ObjectId(issue_id), ObjectId(user_id), status)
+
+    flash("{} işaretlendi.".format(status), "success")
+    return redirect("/issue/{}".format(issue_id))
 
 
 @app.route("/error")
@@ -232,7 +251,7 @@ def show_technician():
 def show_chief():
     """Show signup form."""
     try:
-        issues = get_issues(session["current_user"]["user_id"])
+        issues = get_issues(session["current_user"]["_id"])
     except Exception as e:
         return redirect("/")
 

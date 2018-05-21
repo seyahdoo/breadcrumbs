@@ -39,7 +39,8 @@ def add_user(
         "last_name": last_name,
         "worked_department": worked_department,
         "active": active,
-        "role": role
+        "role": role,
+        "issue_list": []
     }
     user_id = users.insert_one(user).inserted_id
 
@@ -105,13 +106,9 @@ def set_parent_dept(child_department,parent_department):
 
     return True
 
-def update_issue(issue_id,user_id,status,message,attachment_url):
+def update_issue(issue_id,user_id,status,message = "",attachment_url = ""):
 
-    #issue = issues.find_one("_id":issue_id)
-
-    #TODO add message vs
-
-    issues.find_one_and_update({"_id": child_department},
+    issues.find_one_and_update({"_id": issue_id},
                                     {"$set": {"issue_status": status}})
 
     return
@@ -122,5 +119,8 @@ def assign_solver_to_issue(issue_id,solver_id):
 
     users.find_one_and_update({"_id": solver_id},
                                 {"$set": {"issue_list": user["issue_list"]}})
+
+    issues.find_one_and_update({"_id": issue_id},
+                               {"$set": {"solver_id": solver_id}})
 
     return
