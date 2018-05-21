@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Şef{% endblock %}
+
+{% block content %}
+
+
+<!-- issues-->
+      <div role="tabpanel" id="issues" class="tab-pane fade in active" aria-labelledby="users-tab">
+        <div class="panel panel-default login-signup">
+          <div class="panel-heading">
+            <h1 class="panel-title" align="center">Meseleler</h1>
+          </div><!--   /.panel-heading -->
+          <div class="panel-body">
+            <table id="tableID" class="table">
+              <thead>
+                <tr>
+                  <th>Sıra</th>
+                  <th>Tipi</th>
+                  <th>Bölüm</th>
+                  <th>Sınıf</th>
+                  <th>Konu</th>
+                  <th>Giriş Tarihi</th>
+                  <th>Durum</th>
+                </tr>
+              </thead>
+
+              <tfoot>
+                  <tr>
+                    {% if issues%}
+                      {% for issue in issues %}
+                      <tr>
+                        <td id="myselect" onclick="window.location.href='/issue/{{issue._id}}/';" role="tab" data-toggle="tab"><button class="btn btn-info">1</button></td>
+                        <td>{{ issue.issue_type }}</td>
+                        <td>{{ issue.department_id }}</td>
+                        <td>D011</td>
+                        <td>{{ issue.issue_summary }}</td>
+                        <td>{{ issue.entry_date }}</td>
+                        <td>{{ issue.issue_status }}</td>
+                      </tr>
+                      {% endfor %}
+                      {% else %}
+                    {% endif %}
+
+
+                  </tr>
+
+              </tfoot>
+            </table>
+
+          </div><!-- /.panel-body-->
+        </div><!-- /.panel -->
+    </div><!-- /.issues-->
+
+
+
+{% endblock %}

@@ -10,7 +10,7 @@
         <a href="#new_issue" role="tab" data-toggle="tab" >Mesele Oluştur</a>
       </li>
       <li role="presentation" class="">
-        <a href="#issues" role="tab" data-toggle="tab" >Meseleler</a>
+        <a href="/my_issues" role="tab" data-toggle="tab" >Meseleler</a>
       </li>
       <li role="presentation" class="">
         <a href="#settings" role="tab" data-toggle="tab" >Ayarlar</a>
@@ -38,32 +38,11 @@
                 <!-- yukarıdaki linkten dbdeki verilerle select tasarlama örneği -->
                 <label >Departman</label>
                 <select name="departman_id" class="selectpicker form-control">
-                  {% if session.data %}
-                    {% for o in session.data %}
-                    <option value="{{ o.name }}">{{ o.name }}</option>
+                    {% for d in depts %}
+                    <option value="{{ d._id }}">{{ d.name }}</option>
                     {% endfor %}
-                  {% else %}
-                  {% endif %}
                 </select>
 
-                <label >Birim</label>
-                <select name="birim_id" class="selectpicker form-control">
-                  {% if session.data %}
-                    {% for o in session.data %}
-                      <option value="{{ o.name }}">{{ o.name }}</option>
-                    {% endfor %}
-                    {% else %}
-                    {% endif %}
-                </select>
-                <label >Sınıf</label>
-                <select name="class_id" class="selectpicker form-control">
-                  {% if session.data %}
-                    {% for o in session.data %}
-                      <option value="{{ o.name }}">{{ o.name }}</option>
-                    {% endfor %}
-                    {% else %}
-                    {% endif %}
-                </select>
                 <label>Mesele Tipi</label>
                 <select name="IssueType" id="IssueType" class="selectpicker form-control">
                   <option value="">Seçiniz</option>

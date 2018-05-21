@@ -145,12 +145,12 @@ def show_specific_issue(issue_id):
 def new_issue_form():
     """Show new issue Form"""
 
-    session.data  = [{"name":"Elektronik Fakultesi"},{"name":"Egitim Fakultesi"},{"name":"Insaat Fakultesi"},{"name":"Ogrenci Dekanligi"},{"name":"Enstituler"},{"name":"dfdsfdf"}]
+    depts = departments.find()
 
     print(session["current_user"])
     session.issues = get_issues(session["current_user"]["_id"])
 
-    return render_template("issue_form.html")
+    return render_template("issue_form.html", depts=depts)
 
 
 @app.route("/new-issue",  methods=["POST"])
@@ -160,11 +160,11 @@ def new_issue_post():
     #Create new issue
 
     add_issue(
-        request.form.get("birim_id"),
-        session["current_user"]["user_id"],
+        ObjectId(request.form.get("departman_id")),
+        ObjectId(session["current_user"]["_id"]),
         request.form.get("IssueType"),
-        request.form.get("mesaj"),
-        request.form.get("konu"))
+        request.form.get("konu"),
+        request.form.get("mesaj"))
 
     #populate issue
 
@@ -177,9 +177,10 @@ def new_issue_post():
 def my_issues():
     """Show my attended issue list"""
 
+    iss = get_issues(session["current_user"]["_id"])
+    print(iss)
 
-
-    return render_template("issue_list.html")
+    return render_template("issue_list.html",issues=iss)
 
 
 @app.route("/department_issues",  methods=["GET"])

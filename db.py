@@ -82,14 +82,14 @@ def get_issues(user_id):
     role = user["role"]
     if (role=="mesele_girici"):
         print(role);
-        issue_list=issues.find({"issuer_id":user_id})
+        issue_list=issues.find({"issuer_id": ObjectId(user_id)})
         return issue_list
     elif(role=="amir" or role=="bolum_baskani"):
         department=user["worked_department"]
-        issue_list=issues.find({"department_id":department})
+        issue_list=issues.find({"department_id": ObjectId(department)})
         return issue_list
     elif(role=="teknisyen"):
-        issue_list=issues.find({"solver_id": user_id})
+        issue_list=issues.find({"solver_id": ObjectId(user_id)})
         return issue_list
     elif(role=="admin"):
         return issues.find_all()

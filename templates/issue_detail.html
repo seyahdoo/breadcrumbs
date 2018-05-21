@@ -35,10 +35,14 @@
 
 
       <form>
-
+        {% if session.current_user.role == "amir" %}
         <a href="/show_assign_technician?issue_id={{issue._id}}" class="btn btn-primary" style="margin-left:250px;" data-toggle="tab">Eleman Ata</a>
+        {% endif %}
+
+        {% if session.current_user.role == "amir" or session.current_user.role == "teknisyen" %}
         <a class="btn btn-danger" data-toggle="tab" onclick="DoPostUnsolvable()">Çözülemez</a>
         <a class="btn btn-success" data-toggle="tab" onclick="DoPostFinished()">Çözüldü</a>
+        {% endif %}
 
       </form>
 
